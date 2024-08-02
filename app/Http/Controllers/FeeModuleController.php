@@ -13,6 +13,7 @@ class FeeModuleController extends Controller
     public function index()
     {
         //
+        return view("fees.index");
     }
 
     /**
