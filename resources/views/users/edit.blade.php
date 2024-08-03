@@ -2,7 +2,7 @@
     <section class="bg-white dark:bg-gray-900">
 
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
-            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new User</h2>
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update User Information</h2>
             <form action="#">
                 <h2 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</h2>
                 <div class="flex items-center justify-center w-full py-4">
@@ -29,17 +29,18 @@
                 </div>
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
+                    <img src="#" alt="" class="w-24 h-24 rounded-full bg-green-100">
                     <div class="sm:col-span-2">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
                             Name</label>
-                        <input type="text" name="name" id="name"
+                        <input type="text" name="name" id="name" value="{{ $user->name }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="eg. John Doe" required="">
                     </div>
                     <div class="w-full">
                         <label for="email"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email"
+                        <input type="email" name="email" id="email" value="{{ $user->email }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="eg. example@mail.com" required="">
                     </div>

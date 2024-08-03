@@ -22,6 +22,7 @@ class CatalogueController extends Controller
     public function create()
     {
         //
+        return view("catalogue.create");
     }
 
     /**
