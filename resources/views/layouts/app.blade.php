@@ -19,6 +19,7 @@
 <body class="font-sans antialiased">
     <div>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="https://kit.fontawesome.com/cc31d88ebe.js" crossorigin="anonymous"></script>
 
         <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
             <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false"
