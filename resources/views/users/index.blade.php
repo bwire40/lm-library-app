@@ -39,14 +39,14 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                                 <input type="text" name="name" id="name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Type product name" required="">
+                                    placeholder="Type product name" >
                             </div>
                             <div class="col-span-2 sm:col-span-1">
                                 <label for="price"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
                                 <input type="number" name="price" id="price"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="$2999" required="">
+                                    placeholder="$2999" >
                             </div>
                             <div class="col-span-2 sm:col-span-1">
                                 <label for="category"
@@ -81,7 +81,10 @@
                         </button>
                     </form>
                 </div> --}}
-                <form class="bg-slate-800 text-white dark:bg-gray-900 rounded-lg">
+                <form action="{{ route('guests.store') }}" method="post"
+                    class="bg-slate-800 text-white dark:bg-gray-900 rounded-lg">
+                    @csrf
+                    @method('post')
 
                     <div class="py-8 px-4 mx-auto max-w-7xl lg:py-16">
                         <h2 class="mb-4 text-xl font-bold text-white dark:text-white">Add a new User</h2>
@@ -118,31 +121,47 @@
                                         class="block mb-2 text-sm font-medium text-white dark:text-white">Full
                                         Name</label>
                                     <input type="text" name="name" id="name"
-                                        class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="eg. John Doe" required="">
+                                        class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="eg. John Doe" required>
+
+                                    @error('name')
+                                        <p class="text-red-500 my-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="w-full">
                                     <label for="email"
                                         class="block mb-2 text-sm font-medium text-white dark:text-white">Email</label>
                                     <input type="email" name="email" id="email"
-                                        class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="eg. example@mail.com" required="">
+                                        class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="eg. example@mail.com" required>
+
+                                    @error('email')
+                                        <p class="text-red-500 my-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="w-full">
-                                    <label for="national id"
+                                    <label for="nationalId"
                                         class="block mb-2 text-sm font-medium text-white dark:text-white">National
                                         Id</label>
-                                    <input type="number" name="nationalid" id="nationalid"
+                                    <input type="number" name="nationalId" id="nationalId"
                                         class="bg-gray-50 border border-gray-300 noscroll text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="eg. 370XXXXXXX" required="">
+                                        placeholder="eg. 370XXXXXXX" required>
+
+                                    @error('nationalId')
+                                        <p class="text-red-500 my-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="w-full">
                                     <label for="address"
                                         class="block mb-2 text-sm font-medium text-white dark:text-white">Home
                                         Address</label>
                                     <input type="text" name="address" id="address"
-                                        class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="eg. 200-00100, kilimani" required="">
+                                        class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="eg. 200-00100, kilimani">
+
+                                    @error('address')
+                                        <p class="text-red-500 my-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div>
@@ -151,7 +170,11 @@
                                         Number</label>
                                     <input type="number" name="phone" id="phone"
                                         class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="736587412" required="">
+                                        placeholder="736587412">
+
+                                    @error('phone')
+                                        <p class="text-red-500 my-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 {{-- <div class="sm:col-span-2">
                                     <label for="description"
@@ -217,67 +240,79 @@
 
 
                             @foreach ($users as $user)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 w-10 h-10">
-                                                <img class="w-10 h-10 rounded-full"
-                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                    alt="">
-                                            </div>
-
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium leading-5 text-white">
-                                                    Name: {{ $user->name }}
+                                {{-- only display guest users --}}
+                                @if ($user->userType == 'guest')
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 w-10 h-10">
+                                                    <img class="w-10 h-10 rounded-full"
+                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                                                        alt="">
                                                 </div>
-                                                <div class="text-sm leading-5 text-gray-500">
-                                                    Email: {{ $user->email }} </div>
+
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium leading-5 text-black">
+                                                        Name: {{ $user->name }}
+                                                    </div>
+                                                    <div class="text-sm leading-5 text-gray-500">
+                                                        Email: {{ $user->email }} </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
 
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{-- <div class="text-sm leading-5 text-white">Software Engineer
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            {{-- <div class="text-sm leading-5 text-white">Software Engineer
                                     </div> --}}
-                                        <div class="text-sm leading-5 text-gray-500">124578987</div>
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        +24578968721</td>
-                                    <td
-                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800">Box 4580-00200
-                                        </div>
-                                        <div class="text-sm leading-5 text-gray-500">Kilimani Kenya</div>
-                                    </td>
+                                            <div class="text-sm leading-5 text-gray-500">
+                                                {{ $user->nationalId }}
+                                            </div>
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            {{ $user->phone }}</td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">{{ $user->address }}
+                                            </div>
+                                            {{-- <div class="text-sm leading-5 text-gray-500">Kilimani Kenya</div> --}}
+                                        </td>
 
 
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <span
-                                            class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            @if ($user->status == 'active')
+                                                <span
+                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                            @else
+                                                <span
+                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">In
+                                                    active</span>
+                                            @endif
 
-                                    </td>
+
+                                        </td>
 
 
-                                    <td
-                                        class="px-6 flex justify-center items-center py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                        <a href="{{ route('users.edit', $user) }}"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+                                        <td
+                                            class="px-6 flex justify-center items-center py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                            <a href="{{ route('guests.edit', $user->id) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
 
-                                        <a href="#"
-                                            class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
+                                            <a href="#"
+                                                class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
 
-                                        <form action="{{ secure_url(route('users.destroy', $user->id)) }}"
-                                            method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="text-red-600 hover:text-red-900">delete</button>
-                                        </form>
-                                        {{-- <a href="{{ route('users.destroy', $user->id) }}"
+                                            <form action="{{ secure_url(route('users.destroy', $user->id)) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="text-red-600 hover:text-red-900">delete</button>
+                                            </form>
+                                            {{-- <a href="{{ route('users.destroy', $user->id) }}"
                                             class="text-red-600 hover:text-red-900">delete</a> --}}
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
 
 

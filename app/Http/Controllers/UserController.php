@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guest;
 use App\Models\User;
 use Illuminate\Http\Request;
 // use App\Http\Controllers\User;
@@ -11,7 +12,8 @@ class UserController extends Controller
     //
     public function index()
     {
-        $users = User::all();
+
+        $users = Guest::all();
         return view("users.index", ["users" => $users]);
     }
 
