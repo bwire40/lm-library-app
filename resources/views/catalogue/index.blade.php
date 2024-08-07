@@ -86,11 +86,11 @@
         <div class="mt-8">
 
         </div>
-        <div class="my-8 flex items-center">
+        <div class="my-8 flex flex-col md:flex-row items-start">
             <!-- Modal toggle -->
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                class="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300
-        font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                class="block my-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 w-full md:mx-3
+                focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                 type="button">
                 Add new Book
             </button>
@@ -272,10 +272,10 @@
                 </div>
             </div>
             <a href="#"
-                class="bg-yellow-300 text-black px-10 py-5 rounded-lg font-bold m-3 transition-all duration-300 hover:bg-yellow-400">View
-                available books</a>
+                class="bg-yellow-300 text-black px-10 py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-yellow-400 w-full">Available
+                books</a>
             <a href="#"
-                class="bg-black text-white px-10 py-5 rounded-lg font-bold m-3 transition-all duration-300 hover:bg-slate-600">View
+                class="bg-black text-white px-10 w-full py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-slate-600">View
                 Authors</a>
         </div>
 
