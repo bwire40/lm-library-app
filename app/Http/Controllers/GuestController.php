@@ -13,7 +13,7 @@ class GuestController extends Controller
     public function index()
     {
         //
-        $guests = Guest::all();
+        $guests = Guest::orderBy("created_at", "desc")->paginate(5);
         return view("users.index", compact("guests"));
     }
 

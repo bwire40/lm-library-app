@@ -9,7 +9,7 @@
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
                     <img src="{{ asset('images/' . $guest->image) }}" alt=""
-                        class=" w-56 h-56 rounded-full bg-green-100">
+                        class=" w-56 h-56 rounded-full bg-green-100 object-cover">
                     <div class="sm:col-span-2">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
                             Name</label>

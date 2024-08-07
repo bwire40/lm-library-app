@@ -4,14 +4,16 @@ use App\Http\Controllers\AcquisitionController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\FeeModuleController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get("/", [HomeController::class, "index"])->name("dashboard");
 
 // catalogue route
 Route::resource('/catalogue', CatalogueController::class)
