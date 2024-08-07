@@ -30,6 +30,8 @@ class GuestController extends Controller
      */
     public function store(Request $request)
     {
+
+        $user = Guest::all();
         //validate form input
         $validated = $request->validate([
             "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
@@ -44,15 +46,20 @@ class GuestController extends Controller
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
 
-        // $guest = Guest::create($validated);
-        $request->user()->guest()->create([
-            "name" => $validated["name"],
-            "email" => $validated["email"],
-            "phone" => $validated["phone"],
-            "address" => $validated["address"],
-            "nationalId" => $validated["nationalId"],
-            "image" => $imageName,
-        ]);
+        if (Guest::where('email', '=', $validated["email"])->exists()) {
+            // dump($user);
+            return redirect()->back()->with('success', 'User is already in the system');
+        } else {
+            $request->user()->guest()->create([
+                "name" => $validated["name"],
+                "email" => $validated["email"],
+                "phone" => $validated["phone"],
+                "address" => $validated["address"],
+                "nationalId" => $validated["nationalId"],
+                "image" => $imageName,
+            ]);
+        }
+
 
         // dump($imageName);
         return redirect()->route("users.index")->with("success", "User Created Successfully");
@@ -80,7 +87,46 @@ class GuestController extends Controller
      */
     public function update(Request $request, Guest $guest)
     {
-        //
+        //validate form input
+        $validated = $request->validate([
+            // "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
+            "name" => 'required|min:3|max:30',
+            "email" => "required|email",
+            "phone" => "required",
+            "nationalId" => "required",
+            "address" => "required|min:3|max:30",
+            "status" => "required"
+        ]);
+
+        // // image path
+        // $imageName = time() . '.' . $request->image->extension();
+        // $request->image->move(public_path('images'), $imageName);
+
+        // $guest = Guest::create($validated);
+        $guest->update([
+            "name" => $validated["name"],
+            "email" => $validated["email"],
+            "phone" => $validated["phone"],
+            "address" => $validated["address"],
+            "nationalId" => $validated["nationalId"],
+            "status" => $validated["status"],
+        ]);
+
+        // dump($validated["status"]);
+        return redirect()->route("users.index")->with("success", "User Updated Successfully");
+    }
+    // update status
+    public function changeStatus(Request $request, Guest $guest)
+    {
+        if (Guest::where('status', '=', 'active')) {
+            $guest->update([
+                "status" => "inactive"
+            ]);
+        } elseif (Guest::where('status', '=', 'inactive')) {
+            $guest->update([
+                "status" => "active"
+            ]);
+        }
     }
 
     /**
