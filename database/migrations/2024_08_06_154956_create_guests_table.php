@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('status')->default('active');
             $table->unsignedBigInteger('phone')->unsigned()->unique('phone');
             $table->string('address');
+            $table->text('image')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

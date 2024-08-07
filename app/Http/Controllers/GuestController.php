@@ -32,6 +32,7 @@ class GuestController extends Controller
     {
         //validate form input
         $validated = $request->validate([
+            "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
             "name" => 'required|min:3|max:30',
             "email" => "required|email",
             "phone" => "required",
@@ -39,10 +40,22 @@ class GuestController extends Controller
             "address" => "required|min:3|max:30"
         ]);
 
-        // $guest = Guest::create($validated);
-        $request->user()->guest()->create($validated);
+        // image path
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
 
-        return redirect()->route("users.index")->with("success", "Created Successfully");
+        // $guest = Guest::create($validated);
+        $request->user()->guest()->create([
+            "name" => $validated["name"],
+            "email" => $validated["email"],
+            "phone" => $validated["phone"],
+            "address" => $validated["address"],
+            "nationalId" => $validated["nationalId"],
+            "image" => $imageName,
+        ]);
+
+        // dump($imageName);
+        return redirect()->route("users.index")->with("success", "User Created Successfully");
     }
 
     /**
@@ -76,5 +89,7 @@ class GuestController extends Controller
     public function destroy(Guest $guest)
     {
         //
+        $guest->delete();
+        return redirect()->route("users.index")->with("success", "User deleted Successfully!");
     }
 }

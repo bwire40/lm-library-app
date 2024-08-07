@@ -11,7 +11,7 @@ class Guest extends Model
 
 
     protected $fillable = [
-        "name", "email", "phone", "address", "nationalId",
+        "name", "email", "phone", "address", "nationalId", "image"
     ];
     public function user()
     {

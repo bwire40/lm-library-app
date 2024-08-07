@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="px-5 py-10">
 
+        @include('shared.success_message')
 
         <!-- Modal toggle -->
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -81,7 +82,7 @@
                         </button>
                     </form>
                 </div> --}}
-                <form action="{{ route('guests.store') }}" method="post"
+                <form action="{{ route('guests.store') }}" method="post" enctype="multipart/form-data"
                     class="bg-slate-800 text-white dark:bg-gray-900 rounded-lg">
                     @csrf
                     @method('post')
@@ -109,10 +110,12 @@
                                                 upload profile image</span> or drag and drop</p>
                                         <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF </p>
                                     </div>
-                                    <input id="dropzone-file" type="file" name="image" class=" sm:hidden lg:block"
+                                    <input id="dropzone-file" type="file" name="image" class="text-black lg:block"
                                         multiple />
                                 </label>
-
+                                @error('image')
+                                    <p class="text-red-500 my-2">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
@@ -121,7 +124,8 @@
                                         class="block mb-2 text-sm font-medium text-white dark:text-white">Full
                                         Name</label>
                                     <input type="text" name="name" id="name"
-                                        class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                        dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="eg. John Doe" required>
 
                                     @error('name')
@@ -245,10 +249,9 @@
                                     <tr>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             <div class="flex items-center">
-                                                <div class="flex-shrink-0 w-10 h-10">
+                                                <div class="flex-shrink-0 w-10 h    -10">
                                                     <img class="w-10 h-10 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                        alt="">
+                                                        src="{{ asset('images/' . $user->image) }}" alt="">
                                                 </div>
 
                                                 <div class="ml-4">
@@ -301,7 +304,7 @@
                                             <a href="#"
                                                 class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
 
-                                            <form action="{{ secure_url(route('users.destroy', $user->id)) }}"
+                                            <form action="{{ secure_url(route('guests.destroy', $user->id)) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('delete')
