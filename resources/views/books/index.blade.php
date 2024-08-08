@@ -1,6 +1,8 @@
 <x-app-layout>
     <div class="container px-6 py-8 mx-auto">
         <h3 class="text-3xl font-medium text-gray-700">Our Library</h3>
+        @include('shared.success_message')
+        @include('shared.error_messages')
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
@@ -97,88 +99,26 @@
 
             <!-- Main modal -->
             <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-3xl max-h-full">
-                    <!-- Modal content -->
-                    {{-- <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                        Create New Product
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-toggle="crud-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <form class="p-4 md:p-5">
-                    <div class="grid gap-4 mb-4 grid-cols-2">
-                        <div class="col-span-2">
-                            <label for="name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                            <input type="text" name="name" id="name"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Type product name" required="">
-                        </div>
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="price"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                            <input type="number" name="price" id="price"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="$2999" required="">
-                        </div>
-                        <div class="col-span-2 sm:col-span-1">
-                            <label for="category"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                            <select id="category"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option selected="">Select category</option>
-                                <option value="TV">TV/Monitors</option>
-                                <option value="PC">PC</option>
-                                <option value="GA">Gaming/Console</option>
-                                <option value="PH">Phones</option>
-                            </select>
-                        </div>
-                        <div class="col-span-2">
-                            <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product
-                                Description</label>
-                            <textarea id="description" rows="4"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Write product description here"></textarea>
-                        </div>
-                    </div>
-                    <button type="submit"
-                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        Add new product
-                    </button>
-                </form>
-            </div> --}}
-                    <form class="bg-slate-800 text-white dark:bg-gray-900 rounded-lg">
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center
+                items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+
+
+                <div class="relative p-4 w-full max-w-4xl max-h-full">
+
+                    <section class="bg-slate-50 shadow-2xl text-white dark:bg-gray-900 rounded-lg px-5">
 
                         <div class="py-8 px-4 mx-auto max-w-7xl lg:py-16">
-                            <h2 class="mb-4 text-xl font-bold text-white dark:text-white">Add a new User</h2>
-                            <form action="#">
-                                <h2 class="block mb-2 text-sm font-medium text-white dark:text-white">Image</h2>
+                            <h2 class="mb-4 text-xl font-bold text-black dark:text-white">Add Book</h2>
+                            <form action="{{ route('guests.store') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('post')
+                                <h2 class="block mb-2  text-black dark:text-white">Book Image</h2>
                                 <div class="flex items-center justify-center w-full py-4">
 
                                     <label for="dropzone-file"
                                         class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed
-                                rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100
-                                dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                        rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100
+                                        dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                             <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -187,7 +127,7 @@
                                                     stroke-linejoin="round" stroke-width="2"
                                                     d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                             </svg>
-                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                            <p class="mb-2  text-gray-500 dark:text-gray-400"><span
                                                     class="font-semibold">Click
                                                     to
                                                     upload profile image</span> or drag and drop</p>
@@ -195,88 +135,148 @@
                                             </p>
                                         </div>
                                         <input id="dropzone-file" type="file" name="image"
-                                            class=" sm:hidden lg:block" multiple />
+                                            class="text-black lg:block" multiple />
                                     </label>
-
+                                    @error('image')
+                                        <p class="text-red-500 my-2">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
-                                    <div class="sm:col-span-2">
-                                        <label for="name"
-                                            class="block mb-2 text-sm font-medium text-white dark:text-white">Full
-                                            Name</label>
-                                        <input type="text" name="name" id="name"
-                                            class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="eg. John Doe" required="">
+                                    <div class="w-full">
+                                        <label for="title" class="block mb-2   text-black dark:text-white">Book
+                                            Title</label>
+                                        <input type="text" name="title" id="title"
+                                            class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="eg. John Doe" required>
+
+                                        @error('title')
+                                            <p class="text-red-500 my-2">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="w-full">
-                                        <label for="email"
-                                            class="block mb-2 text-sm font-medium text-white dark:text-white">Email</label>
-                                        <input type="email" name="email" id="email"
-                                            class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="eg. example@mail.com" required="">
+                                        <label for="bookcode" class="block mb-2   text-black dark:text-white">
+                                            Book Code</label>
+                                        <input type="text" name="bookcode" id="bookcode"
+                                            class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="eg. CCDXXX" required>
+
+                                        @error('bookcode')
+                                            <p class="text-red-500 my-2">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label for="genre"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Genre</label>
+                                        <select name="genre" id="genre"
+                                            class="bg-slate-200 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                            <option selected="">Select genre</option>
+
+
+                                            @foreach ($genres as $genre)
+                                                <option value="{{ $genre->genre }}">{{ $genre->genre }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="w-full">
-                                        <label for="national id"
-                                            class="block mb-2 text-sm font-medium text-white dark:text-white">National
-                                            Id</label>
-                                        <input type="number" name="nationalid" id="nationalid"
-                                            class="bg-gray-50 border border-gray-300 noscroll text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="eg. 370XXXXXXX" required="">
+                                        <label for="author"
+                                            class="block mb-2   text-black dark:text-white">Author</label>
+                                        <input type="text" name="author" id="author"
+                                            class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="eg. Arome Osayi" required>
+
+                                        @error('author')
+                                            <p class="text-red-500 my-2">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="w-full">
-                                        <label for="address"
-                                            class="block mb-2 text-sm font-medium text-white dark:text-white">Home
-                                            Address</label>
-                                        <input type="text" name="address" id="address"
-                                            class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="eg. 200-00100, kilimani" required="">
+                                        <label for="date_published"
+                                            class="block mb-2   text-black dark:text-white">Date Published</label>
+                                        <input type="date" name="date_published" id="date_published"
+                                            class="bg-gray-50 border border-gray-300 disableFuturedate noscroll text-slate-600  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="eg. 20-jul-2022" required>
+
+                                        @error('date_published')
+                                            <p class="text-red-500 my-2">{{ $message }}</p>
+                                        @enderror
                                     </div>
 
-                                    <div>
-                                        <label for="phone"
-                                            class="block mb-2 text-sm font-medium text-white dark:text-white">Phone
-                                            Number</label>
-                                        <input type="number" name="phone" id="phone"
-                                            class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="736587412" required="">
-                                    </div>
-                                    {{-- <div class="sm:col-span-2">
-                                <label for="description"
-                                    class="block mb-2 text-sm font-medium text-white dark:text-white">Description</label>
-                                <textarea id="description" rows="8"
-                                    class="block p-2.5 w-full text-sm text-white bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Your description here"></textarea>
-                            </div> --}}
-                                    {{-- <div>
-                                <label for="status"
-                                    class="block mb-2 text-sm font-medium text-white dark:text-white">Status</label>
-                                <select id="status"
-                                    class="bg-gray-50 border border-gray-300 text-white text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected="">Select category</option>
-                                    <option value="TV">TV/Monitors</option>
-                                    <option value="PC">PC</option>
-                                    <option value="GA">Gaming/Console</option>
-                                    <option value="PH">Phones</option>
-                                </select>
-                            </div> --}}
                                 </div>
-                                <button type="submit"
-                                    class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center transition-all duration-300
-                            text-white bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-blue-700">
-                                    Add user
+
+                                <div class="w-full">
+                                    <label for="address" class="block mb-2  my-2 text-black dark:text-white">Book
+                                        Description</label>
+                                    <textarea
+                                        class="bg-gray-50 border border-gray-300 text-slate-600  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        name="description" id="decription" cols="30" rows="10"></textarea>
+
+                                    @error('address')
+                                        <p class="text-red-500 my-2">{{ $message }}</p>
+                                    @enderror
+                                </div> <button type="submit"
+                                    class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6   text-center transition-all duration-300
+                                    text-white bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-blue-700">
+                                    Add Book
                                 </button>
                             </form>
                         </div>
-                    </form>
+                    </section>
                 </div>
             </div>
+
+            <button
+                class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
+                focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onclick="toggleModal()">Add Genre</button>
             <a href="#"
                 class="bg-yellow-300 text-black px-10 py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-yellow-400 w-full">Available
                 books</a>
             <a href="#"
                 class="bg-black text-white px-10 w-full py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-slate-600">View
                 Authors</a>
+
+            {{-- modal content --}}
+            <div class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden" id="modal">
+                <div
+                    class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 transition-opacity">
+                        <div class="absolute inset-0 bg-gray-900 opacity-75"></div>
+                    </div>
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+
+                    <form action="{{ route('genre.store') }}" method="post"
+                        class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                        role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+
+                        @csrf
+                        @method('post')
+                        <h1 class="mx-7 my-4 text-lg font-bold">Add Genre</h1>
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+
+                            <label for="genre" class="block mb-2   text-black dark:text-white">genre</label>
+                            <input type="genre" name="genre" id="genre"
+                                class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="eg. historic" required>
+
+                            @error('genre')
+                                <p class="text-red-500 my-2">{{ $message }}</p>
+                            @enderror
+
+
+                        </div>
+                        <div class="bg-gray-200 px-4 py-3 text-right">
+                            <button type="button"
+                                class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
+                                onclick="toggleModal()"><i class="fas fa-times"></i> Cancel</button>
+                            <button type="submit"
+                                class="py-2 px-4 bg-blue-500 text-white rounded font-medium hover:bg-blue-700 mr-2 transition duration-500"><i
+                                    class="fas fa-plus"></i> Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <h2 class="text-3xl text-gray-700">Recently Added Books</h2>
@@ -509,3 +509,10 @@
         </div>
     </div>
 </x-app-layout>
+
+
+<script>
+    function toggleModal() {
+        document.getElementById('modal').classList.toggle('hidden')
+    }
+</script>

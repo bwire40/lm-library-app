@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Catalogue;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
-class CatalogueController extends Controller
+class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,6 @@ class CatalogueController extends Controller
     public function index()
     {
         //
-        return view("catalogue.index");
     }
 
     /**
@@ -22,7 +21,6 @@ class CatalogueController extends Controller
     public function create()
     {
         //
-        return view("catalogue.create");
     }
 
     /**
@@ -31,12 +29,19 @@ class CatalogueController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            "genre" => "required|min:3",
+        ]);
+
+        // create
+        $request->user()->genre()->create($validated);
+        return redirect()->route("books.index")->with("success", "Genre Created successfully!");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Catalogue $catalogue)
+    public function show(Genre $genre)
     {
         //
     }
@@ -44,7 +49,7 @@ class CatalogueController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Catalogue $catalogue)
+    public function edit(Genre $genre)
     {
         //
     }
@@ -52,7 +57,7 @@ class CatalogueController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Catalogue $catalogue)
+    public function update(Request $request, Genre $genre)
     {
         //
     }
@@ -60,7 +65,7 @@ class CatalogueController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Catalogue $catalogue)
+    public function destroy(Genre $genre)
     {
         //
     }

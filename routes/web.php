@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AcquisitionController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\FeeModuleController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -13,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get("/", [HomeController::class, "index"])->name("dashboard");
+Route::get("/", [HomeController::class, "index"])->middleware(['auth', 'verified', Admin::class])->name("dashboard");
 
 // catalogue route
-Route::resource('/catalogue', CatalogueController::class)
+Route::resource('/books', BookController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified', Admin::class]);
 
@@ -36,6 +38,11 @@ Route::resource('/users', UserController::class)
 
 
 Route::resource('/guests', GuestController::class)
+    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
+    ->middleware(['auth', 'verified', Admin::class]);
+
+
+Route::resource('/genre', GenreController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified', Admin::class]);
 
