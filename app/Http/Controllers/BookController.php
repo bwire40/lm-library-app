@@ -16,7 +16,8 @@ class BookController extends Controller
         //
         $genres = Genre::all();
         $books = Book::all();
-        return view("books.index", compact("genres", "books"));
+        $count = Book::count();
+        return view("books.index", compact("genres", "books", "count"));
     }
 
     /**
@@ -77,6 +78,13 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
+        $genres = Genre::all();
+        $count = $book->count();
+        return view("books.edit", [
+            "book" => $book,
+            "genres" => $genres,
+            "count" => $count
+        ]);
     }
 
     /**

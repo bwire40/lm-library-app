@@ -33,8 +33,8 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">82</h4>
-                            <div class="text-gray-500">New Books</div>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $count }}</h4>
+                            <div class="text-gray-500"> Books</div>
                         </div>
                     </div>
                 </div>
@@ -77,8 +77,8 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">242</h4>
-                            <div class="text-gray-500">Available catalogue</div>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $count }}</h4>
+                            <div class="text-gray-500">Available Books</div>
                         </div>
                     </div>
                 </div>
@@ -296,68 +296,75 @@
                                     Book code</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Phone</th>
+                                    genre</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Home Address</th>
+                                    date published</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Status</th>
+                                    Availability</th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
                             </tr>
                         </thead>
 
                         <tbody class="bg-white">
 
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                alt="">
-                                        </div>
-
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium leading-5 text-gray-900">
-                                                Name: John Doe
+                            @foreach ($books as $book)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 w-10 h-10">
+                                                <img class="w-10 h-10 rounded-full"
+                                                    src="{{ asset('images/' . $book->image) }}" alt="">
                                             </div>
-                                            <div class="text-sm leading-5 text-gray-500">
-                                                Email: john@example.com</div>
+
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium leading-5 text-gray-900">
+                                                    Name: {{ $book->title }}
+                                                </div>
+                                                <div class="text-sm leading-5 text-gray-500">
+                                                    Author: {{ $book->author }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
                                     </div> --}}
-                                    <div class="text-sm leading-5 text-gray-500">124578987</div>
-                                </td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    +24578968721</td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800">Box 4580-00200
-                                    </div>
-                                    <div class="text-sm leading-5 text-gray-500">Kilimani Kenya</div>
-                                </td>
+                                        <div class="text-sm leading-5 text-gray-500">{{ $book->book_code }}</div>
+                                    </td>
+                                    <td
+                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $book->genre }}</td>
+                                    <td
+                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800">{{ $book->date_published }}
+                                        </div>
+                                    </td>
 
 
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span
-                                        class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        @if ($book->is_available == 'yes')
+                                            <span
+                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ $book->is_available }}</span>
+                                        @else
+                                            <span
+                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">{{ $book->is_available }}</span>
+                                        @endif
 
-                                </td>
+                                    </td>
 
 
-                                <td
-                                    class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                    <a href="#" class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">delete</a>
-                                </td>
-                            </tr>
+                                    <td
+                                        class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                        <a href="{{ route('books.edit', $book->id) }}"
+                                            class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+
+                                        <a href="#" class="text-red-600 hover:text-red-900">delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
