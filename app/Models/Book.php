@@ -17,6 +17,7 @@ class Book extends Model
         "image",
         "book_code",
         "genre_id",
+        "copies_number",
     ];
 
     public function user()

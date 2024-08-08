@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $count }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
                             <div class="text-gray-500"> Books</div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $count }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
                             <div class="text-gray-500">Available Books</div>
                         </div>
                     </div>
@@ -202,6 +202,17 @@
                                             <p class="text-red-500 my-2">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                    <div class="w-full">
+                                        <label for="copies_number"
+                                            class="block mb-2   text-black dark:text-white">Number of copies</label>
+                                        <input type="number" name="copies_number" id="copies_number"
+                                            class="bg-gray-50 border border-gray-300 noscroll text-slate-600  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="eg. 200" required>
+
+                                        @error('copies_number')
+                                            <p class="text-red-500 my-2">{{ $message }}</p>
+                                        @enderror
+                                    </div>
 
                                 </div>
 
@@ -303,6 +314,9 @@
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Availability</th>
+                                <th
+                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                    Number of Copies</th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
                             </tr>
                         </thead>
@@ -356,11 +370,22 @@
 
 
                                     <td
+                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800">{{ $book->copies_number }}
+                                        </div>
+                                    </td>
+                                    <td
                                         class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
                                         <a href="{{ route('books.edit', $book->id) }}"
                                             class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
 
-                                        <a href="#" class="text-red-600 hover:text-red-900">delete</a>
+                                        <form action="{{ secure_url(route('books.destroy', $book->id)) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-900">delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
