@@ -116,7 +116,7 @@
                                 <div class="flex items-center justify-center w-full py-4">
 
                                     <label for="dropzone-file"
-                                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed
+                                        class="flex flex-col items-center justify-center w-full h-56 border-2 border-gray-300 border-dashed
                                         rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100
                                         dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -221,7 +221,7 @@
                                         Description</label>
                                     <textarea
                                         class="bg-gray-50 border border-gray-300 text-slate-600  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        name="description" id="decription" cols="30" rows="10"></textarea>
+                                        name="description" id="decription" cols="30" rows="6"></textarea>
 
                                     @error('address')
                                         <p class="text-red-500 my-2">{{ $message }}</p>
@@ -238,15 +238,15 @@
             </div>
 
             <button
-                class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
-                focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                class="block my-2 text-black bg-yellow-200 hover:bg-yellow-300 focus:ring-4 w-full md:mx-3
+                focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800"
                 onclick="toggleModal()">Add Genre</button>
-            <a href="#"
+            {{-- <a href="#"
                 class="bg-yellow-300 text-black px-10 py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-yellow-400 w-full">Available
                 books</a>
             <a href="#"
                 class="bg-black text-white px-10 w-full py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-slate-600">View
-                Authors</a>
+                Authors</a> --}}
 
             {{-- modal content --}}
             <div class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden" id="modal">
