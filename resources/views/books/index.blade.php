@@ -109,7 +109,7 @@
 
                         <div class="py-8 px-4 mx-auto max-w-7xl lg:py-16">
                             <h2 class="mb-4 text-xl font-bold text-black dark:text-white">Add Book</h2>
-                            <form action="{{ route('guests.store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('books.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('post')
                                 <h2 class="block mb-2  text-black dark:text-white">Book Image</h2>
@@ -156,14 +156,14 @@
                                         @enderror
                                     </div>
                                     <div class="w-full">
-                                        <label for="bookcode" class="block mb-2   text-black dark:text-white">
+                                        <label for="book_code" class="block mb-2   text-black dark:text-white">
                                             Book Code</label>
-                                        <input type="text" name="bookcode" id="bookcode"
+                                        <input type="text" name="book_code" id="book_code"
                                             class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                                             dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="eg. CCDXXX" required>
 
-                                        @error('bookcode')
+                                        @error('book_code')
                                             <p class="text-red-500 my-2">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -289,11 +289,11 @@
                             <tr>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Name</th>
+                                    Title</th>
 
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    National ID</th>
+                                    Book code</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Phone</th>
@@ -348,150 +348,6 @@
                                     <span
                                         class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
 
-                                </td>
-
-
-                                <td
-                                    class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                    <a href="#" class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                alt="">
-                                        </div>
-
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium leading-5 text-gray-900">
-                                                Name: John Doe
-                                            </div>
-                                            <div class="text-sm leading-5 text-gray-500">
-                                                Email: john@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
-                                    </div> --}}
-                                    <div class="text-sm leading-5 text-gray-500">124578987</div>
-                                </td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    +24578968721</td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800">Box 4580-00200
-                                    </div>
-                                    <div class="text-sm leading-5 text-gray-500">Kilimani Kenya</div>
-                                </td>
-
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span
-                                        class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                                </td>
-
-
-                                <td
-                                    class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                    <a href="#" class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                alt="">
-                                        </div>
-
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium leading-5 text-gray-900">
-                                                Name: John Doe
-                                            </div>
-                                            <div class="text-sm leading-5 text-gray-500">
-                                                Email: john@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
-                                    </div> --}}
-                                    <div class="text-sm leading-5 text-gray-500">124578987</div>
-                                </td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    +24578968721</td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800">Box 4580-00200
-                                    </div>
-                                    <div class="text-sm leading-5 text-gray-500">Kilimani Kenya</div>
-                                </td>
-
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span
-                                        class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
-                                </td>
-
-
-                                <td
-                                    class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                    <a href="#" class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                alt="">
-                                        </div>
-
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium leading-5 text-gray-900">
-                                                Name: John Doe
-                                            </div>
-                                            <div class="text-sm leading-5 text-gray-500">
-                                                Email: john@example.com</div>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
-                                    </div> --}}
-                                    <div class="text-sm leading-5 text-gray-500">124578987</div>
-                                </td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    +24578968721</td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800">Box 4580-00200
-                                    </div>
-                                    <div class="text-sm leading-5 text-gray-500">Kilimani Kenya</div>
-                                </td>
-
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span
-                                        class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
                                 </td>
 
 
