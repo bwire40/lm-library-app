@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('genre');
             $table->string('author');
             $table->string('date_published');
-            $table->string('is_available')->default('yes');
             $table->text('image')->nullable();
             $table->text('description');
             $table->unsignedInteger('copies_number');

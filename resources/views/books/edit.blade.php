@@ -22,10 +22,10 @@
 
 
                         </div>
-                        <p class="text-gray-500 text-base font-normal mb-5">
+                        <article class="text-gray-500 text-base font-normal mb-5">
                             <span class="text-sm font-bold text-black leading-3">Description...</span> <br> <br>
                             {{ $book->description }}
-                        </p>
+                        </article>
 
                         <p class="text-gray-500 text-base font-normal mb-5">
                             <span class="text-sm font-bold text-black leading-3">Written by: </span>

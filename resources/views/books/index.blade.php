@@ -358,12 +358,12 @@
 
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        @if ($book->is_available == 'yes')
+                                        @if ($book->copies_number > 0)
                                             <span
-                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ $book->is_available }}</span>
+                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Yes</span>
                                         @else
                                             <span
-                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">{{ $book->is_available }}</span>
+                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">No</span>
                                         @endif
 
                                     </td>
