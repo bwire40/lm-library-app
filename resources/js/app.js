@@ -11,13 +11,11 @@ Alpine.start();
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-window.onload = function() {
+window.onload = function () {
     flatpickr("#due-date-picker", {
         altInput: true,
         altFormat: "F j, Y",
         dateFormat: "Y-m-d",
+        static: true,
     });
 };
-
-
-
