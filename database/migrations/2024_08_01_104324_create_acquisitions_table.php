@@ -4,29 +4,32 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAcquisitionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('acquisitions', function (Blueprint $table) {
-
+            $table->id(); // primary key
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->string('issue_date');
+            $table->string('due_date');
+            $table->string('return_date');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('guest_id')->constrained()->onDelete('cascade');
+            $table->foreignId('book_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('acquisitions');
     }
-}
-
+};
