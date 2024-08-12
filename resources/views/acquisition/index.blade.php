@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto mt-4 mb-4 px-4">
-        <h1 class="text-3xl font-bold mb-6">Borrow eBooks & Audiobooks</h1>
+        <h1 class="text-3xl font-bold mb-6">Borrow Books</h1>
 
         <!-- Search bar with corner radius and icon -->
         <div class="relative mb-6">
@@ -18,42 +18,111 @@
         <div class="mb-8">
             <h2 class="text-xl font-semibold mb-4">Refine by</h2>
 
-            <!-- Genre buttons -->
-            <div class="flex flex-wrap gap-2 mb-4">
-                @foreach (['Fiction', 'Nonfiction', 'Mystery', 'Romance', 'History', 'Fantasy', 'Biography', 'Science Fiction', 'Thriller', 'Young Adult'] as $genre)
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-gray-300 hover:text-black">
-                        {{ $genre }}
-                    </button>
-                @endforeach
-            </div>
-
+            @if ($genres)
+                <!-- Genre buttons -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                    @foreach ($genres as $Genre)
+                        <button
+                            class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-gray-300 hover:text-black">
+                            {{ $Genre->genre }}
+                        </button>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-600">No genres available.</p>
+            @endif
         </div>
 
         <div>
-            @foreach ([['title' => 'A Promised Land', 'author' => 'Barack Obama', 'image' => ' https://yavuzceliker.github.io/sample-images/image-12.jpg'], ['title' => 'Becoming', 'author' => 'Michelle Obama', 'image' => ' https://yavuzceliker.github.io/sample-images/image-14.jpg'], ['title' => 'Where the Crawdads Sing', 'author' => 'Delia Owens', 'image' => ' https://yavuzceliker.github.io/sample-images/image-16.jpg'], ['title' => 'Little Fires Everywhere', 'author' => 'Celeste Ng', 'image' => ' https://yavuzceliker.github.io/sample-images/image-18.jpg'], ['title' => 'Educated', 'author' => 'Tara Westover', 'image' => ' https://yavuzceliker.github.io/sample-images/image-20.jpg']] as $book)
-                <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4">
-                    <div class="flex items-center">
-                        <img src="{{ $book['image'] }}" alt="{{ $book['title'] }}"
-                            class="w-12 h-16 object-cover rounded mr-4">
-                        <div>
-                            <h3 class="text-lg font-semibold">{{ $book['title'] }}</h3>
-                            <p class="text-gray-600">By: {{ $book['author'] }}</p>
+            @if ($genres)
+
+                @foreach ($books as $book)
+                    <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4">
+                        <div class="flex items-center" data-book-code="{{ $book->book_code }}"
+                            data-genre="{{ $book->genre }}" data-genre-id="{{ $book->genre_id }}">
+                            <img src="{{ asset('images/' . $book->image) }}" alt="{{ $book->title }}"
+                                class="w-12 h-16 object-cover rounded mr-4"
+                                data-image="{{ asset('images/' . $book->image) }}">
+                            <div>
+                                <h3 class="text-lg font-semibold" data-title="{{ $book->title }}">{{ $book->title }}
+                                </h3>
+                                <p class="text-gray-600" data-author="{{ $book->author }}">By: {{ $book->author }}</p>
+                            </div>
                         </div>
+
+                        <!-- Acquisition Modal Trigger -->
+                        <x-acquisition-modal>
+                            <x-slot name="trigger">
+                                <button
+                                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 acquisition-borrow-button">
+                                    Borrow
+                                </button>
+                            </x-slot>
+
+                            <!-- Modal Content -->
+                            @include('acquisition.create')
+                        </x-acquisition-modal>
                     </div>
-
-                    <!-- Acquisition Modal Trigger -->
-                    <x-acquisition-modal>
-                        <x-slot name="trigger">
-                            <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                                Borrow
-                            </button>
-                        </x-slot>
-
-                        <!-- Modal Content -->
-                        @include('acquisition.create')
-                    </x-acquisition-modal>
-                </div>
-            @endforeach
+                @endforeach
+            @else
+                <p class="text-gray-600">No books available.</p>
+            @endif
         </div>
     </div>
 </x-app-layout>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const borrowButtons = document.querySelectorAll('.acquisition-borrow-button');
+
+        borrowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Find the closest parent div containing book information
+                const parentDiv = this.closest('.flex.items-center');
+
+                // Check if parentDiv exists
+                if (!parentDiv) {
+                    console.error('Parent div not found');
+                    return;
+                }
+
+
+                // Retrieve data attributes from the parentDiv
+                const bookCode = parentDiv.querySelector('[data-book-code]')?.getAttribute(
+                    'data-book-code');
+                const genre = parentDiv.querySelector('[data-genre]')?.getAttribute(
+                    'data-genre');
+                const genreId = parentDiv.querySelector('[data-genre-id]')?.getAttribute(
+                    'data-genre-id');
+                const title = parentDiv.querySelector('[data-title]')?.getAttribute(
+                    'data-title');
+                const author = parentDiv.querySelector('[data-author]')?.getAttribute(
+                    'data-author');
+                const image = parentDiv.querySelector('[data-image]')?.getAttribute(
+                    'data-image');
+
+                // Check if values are null or undefined
+                if (!title || !author || !image || !bookCode || !genre || !genreId) {
+                    console.error('Missing data attributes');
+                    return;
+                }
+
+                // Set the modal content
+                document.getElementById('modal-book-title').textContent = title;
+                document.getElementById('modal-book-genre').textContent = genre;
+                document.getElementById('modal-book-author').textContent = `By: ${author}`;
+                document.getElementById('modal-book-image').src = image;
+                document.getElementById('book-id').value = bookCode;
+
+                // Open the modal
+                const modal = document.querySelector('.acquisition-modal');
+                if (modal) {
+                    modal.classList.remove('hidden'); // Show the modal
+                }
+
+
+            });
+        });
+
+
+    });
+</script>

@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Modal extends Component
+class AcquisitionModal extends Component
 {
     public function render()
     {
