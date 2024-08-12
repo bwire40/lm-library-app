@@ -33,8 +33,8 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">82</h4>
-                            <div class="text-gray-500">New Books</div>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
+                            <div class="text-gray-500"> Books</div>
                         </div>
                     </div>
                 </div>
@@ -77,8 +77,8 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">242</h4>
-                            <div class="text-gray-500">Available catalogue</div>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
+                            <div class="text-gray-500">Available Books</div>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                                 <div class="flex items-center justify-center w-full py-4">
 
                                     <label for="dropzone-file"
-                                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed
+                                        class="flex flex-col items-center justify-center w-full h-56 border-2 border-gray-300 border-dashed
                                         rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100
                                         dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -202,6 +202,17 @@
                                             <p class="text-red-500 my-2">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                    <div class="w-full">
+                                        <label for="copies_number"
+                                            class="block mb-2   text-black dark:text-white">Number of copies</label>
+                                        <input type="number" name="copies_number" id="copies_number"
+                                            class="bg-gray-50 border border-gray-300 noscroll text-slate-600  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="eg. 200" required>
+
+                                        @error('copies_number')
+                                            <p class="text-red-500 my-2">{{ $message }}</p>
+                                        @enderror
+                                    </div>
 
                                 </div>
 
@@ -210,7 +221,7 @@
                                         Description</label>
                                     <textarea
                                         class="bg-gray-50 border border-gray-300 text-slate-600  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        name="description" id="decription" cols="30" rows="10"></textarea>
+                                        name="description" id="decription" cols="30" rows="6"></textarea>
 
                                     @error('address')
                                         <p class="text-red-500 my-2">{{ $message }}</p>
@@ -227,15 +238,15 @@
             </div>
 
             <button
-                class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
-                focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                class="block my-2 text-black bg-yellow-200 hover:bg-yellow-300 focus:ring-4 w-full md:mx-3
+                focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800"
                 onclick="toggleModal()">Add Genre</button>
-            <a href="#"
+            {{-- <a href="#"
                 class="bg-yellow-300 text-black px-10 py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-yellow-400 w-full">Available
                 books</a>
             <a href="#"
                 class="bg-black text-white px-10 w-full py-5 rounded-lg font-bold my-2 md:mx-3 transition-all duration-300 hover:bg-slate-600">View
-                Authors</a>
+                Authors</a> --}}
 
             {{-- modal content --}}
             <div class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden" id="modal">
@@ -296,68 +307,89 @@
                                     Book code</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Phone</th>
+                                    genre</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Home Address</th>
+                                    date published</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Status</th>
+                                    Availability</th>
+                                <th
+                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                    Number of Copies</th>
                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
                             </tr>
                         </thead>
 
                         <tbody class="bg-white">
 
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                alt="">
-                                        </div>
-
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium leading-5 text-gray-900">
-                                                Name: John Doe
+                            @foreach ($books as $book)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 w-10 h-10">
+                                                <img class="w-10 h-10 rounded-full"
+                                                    src="{{ asset('images/' . $book->image) }}" alt="">
                                             </div>
-                                            <div class="text-sm leading-5 text-gray-500">
-                                                Email: john@example.com</div>
+
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium leading-5 text-gray-900">
+                                                    Name: {{ $book->title }}
+                                                </div>
+                                                <div class="text-sm leading-5 text-gray-500">
+                                                    Author: {{ $book->author }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
                                     </div> --}}
-                                    <div class="text-sm leading-5 text-gray-500">124578987</div>
-                                </td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    +24578968721</td>
-                                <td
-                                    class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-800">Box 4580-00200
-                                    </div>
-                                    <div class="text-sm leading-5 text-gray-500">Kilimani Kenya</div>
-                                </td>
+                                        <div class="text-sm leading-5 text-gray-500">{{ $book->book_code }}</div>
+                                    </td>
+                                    <td
+                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        {{ $book->genre }}</td>
+                                    <td
+                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800">{{ $book->date_published }}
+                                        </div>
+                                    </td>
 
 
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span
-                                        class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Active</span>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        @if ($book->copies_number > 0)
+                                            <span
+                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Yes</span>
+                                        @else
+                                            <span
+                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">No</span>
+                                        @endif
 
-                                </td>
+                                    </td>
 
 
-                                <td
-                                    class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                    <a href="#" class="text-green-600 hover:text-green-900 mr-2">deactivate</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">delete</a>
-                                </td>
-                            </tr>
+                                    <td
+                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800">{{ $book->copies_number }}
+                                        </div>
+                                    </td>
+                                    <td
+                                        class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                        <a href="{{ route('books.edit', $book->id) }}"
+                                            class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+
+                                        <form action="{{ secure_url(route('books.destroy', $book->id)) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-900">delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
