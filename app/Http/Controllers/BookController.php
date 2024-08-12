@@ -15,7 +15,7 @@ class BookController extends Controller
     {
         //
         $genres = Genre::all();
-        $books = Book::all();
+        $books = Book::orderBy("created_at", "desc")->paginate(5);
         $count = Book::count();
 
         return view("books.index", compact("genres", "books", "count"));
