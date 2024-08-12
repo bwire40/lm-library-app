@@ -13,12 +13,30 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+
+        // perform a books genre search
+        $books = Book::orderBy("created_at", "desc");
+        // chck if there is search
+        if (request()->has('genre_search')) {
+            $books = $books->where('genre', 'like', '%' . request()->get('genre_search', '') . '%');
+        }
+
+        // perform the book search type
+        // check if there is a search
+        if (request()->has('search_book')) {
+            $books = $books->where('title', 'like', '%' . request()->get('search_book', '') . '%');
+        }
+
+
         $genres = Genre::all();
-        $books = Book::orderBy("created_at", "desc")->paginate(5);
+
         $count = Book::count();
 
-        return view("books.index", compact("genres", "books", "count"));
+        return view("books.index", [
+            "genres" => $genres,
+            "books" => $books->paginate(5),
+            "count" => $count
+        ]);
     }
 
     /**

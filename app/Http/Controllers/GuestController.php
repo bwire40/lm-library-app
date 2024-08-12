@@ -31,7 +31,7 @@ class GuestController extends Controller
     public function store(Request $request)
     {
 
-        $user = Guest::all();
+
         //validate form input
         $validated = $request->validate([
             "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
@@ -42,13 +42,19 @@ class GuestController extends Controller
             "address" => "required|min:3|max:30"
         ]);
 
-        // image path
+
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
 
         if (Guest::where('email', '=', $validated["email"])->exists()) {
             // dump($user);
-            return redirect()->back()->with('success', 'User is already in the system');
+            return redirect()->back()->with('success', 'User with the email provided is already in the system');
+        } else if (Guest::where('phone', '=', $validated["phone"])->exists()) {
+
+            return redirect()->back()->with('success', 'User with the phone number is already in the system');
+        } else if (Guest::where('nationalId', '=', $validated["nationalId"])->exists()) {
+
+            return redirect()->back()->with('success', 'User with the National Id is already in the system');
         } else {
             $request->user()->guest()->create([
                 "name" => $validated["name"],
@@ -89,7 +95,7 @@ class GuestController extends Controller
     {
         //validate form input
         $validated = $request->validate([
-            // "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
+            "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
             "name" => 'required|min:3|max:30',
             "email" => "required|email",
             "phone" => "required",
@@ -98,22 +104,23 @@ class GuestController extends Controller
             "status" => "required"
         ]);
 
-        // // image path
-        // $imageName = time() . '.' . $request->image->extension();
-        // $request->image->move(public_path('images'), $imageName);
 
-        // $guest = Guest::create($validated);
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
+
+
         $guest->update([
+            "image" => $imageName,
             "name" => $validated["name"],
             "email" => $validated["email"],
             "phone" => $validated["phone"],
             "address" => $validated["address"],
             "nationalId" => $validated["nationalId"],
             "status" => $validated["status"],
+
         ]);
 
-        // dump($validated["status"]);
-        return redirect()->route("users.index")->with("success", "User Updated Successfully");
+        return redirect()->route("guests.edit", $guest->id)->with("success", "User Updated Successfully");
     }
     // update status
     public function changeStatus(Request $request, Guest $guest)

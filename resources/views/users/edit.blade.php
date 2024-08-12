@@ -1,15 +1,30 @@
 <x-app-layout>
     <section class="bg-white dark:bg-gray-900">
 
+
         <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
+            @include('shared.success_message')
+            @include('shared.error_messages')
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update User Information</h2>
-            <form action="{{ route('guests.update', $guest->id) }}" method="post">
+            <form action="{{ route('guests.update', $guest->id) }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
-                    <img src="{{ asset('images/' . $guest->image) }}" alt=""
-                        class=" w-56 h-56 rounded-full bg-green-100 object-cover">
+                    <div class="sm:col-span-2">
+                        <img src="{{ asset('images/' . $guest->image) }}" alt=""
+                            class=" w-56 h-56 rounded-full bg-green-100 object-cover">
+                    </div>
+
+                    <div class="w-full">
+                        <label for="image"
+                            class="block mb-2 text-normal font-medium text-gray-900 dark:text-white">Update
+                            Image</label>
+                        <input type="file" name="image" id="image" value="{{ $guest->image }}">
+                        @error('image')
+                            <p class="text-red-500 my-2">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="sm:col-span-2">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
                             Name</label>
@@ -89,7 +104,32 @@
                     text-white bg-blue-500 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-blue-700">
                     Update User Information
                 </button>
+
             </form>
+
+
+            <div class="bg-white shadow-md my-10 pb-10">
+                <h2 class="text-xl font-bold my-3">Delete User</h2>
+                <p> Once the user is deleted, all of its resources and data will be permanently deleted. Before
+                    deleting your account, please download any data or information that you wish to retain.</p>
+
+                <form action="{{ route('guests.destroy', $guest->id) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit"
+                        class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center transition-all duration-300
+                        text-white bg-red-500 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-red-700">
+                        Delete User Information
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 </x-app-layout>
+
+
+<script>
+    function handleClick() {
+        confirm('Sure you want to delete user?')
+    }
+</script>

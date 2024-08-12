@@ -7,7 +7,7 @@
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
                 <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-sm">
+                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
                         <div class="p-10 cursor-pointer  bg-indigo-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-sm">
+                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
                         <div class="p-10 cursor-pointer bg-orange-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 28" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-sm">
+                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
                         <div class="p-10 cursor-pointer bg-pink-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 28" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -292,9 +292,10 @@
             <!-- Genre buttons --search by genres-->
             <div class="flex flex-wrap gap-2 mb-4">
                 @foreach ($genres as $genre)
-                    <form action="#" method="post">
+                    <form action="{{ route('books.index') }}" method="post">
                         @csrf
                         @method('get')
+                        <input type="text" name="genre_search" value="{{ $genre->genre }}" hidden>
                         <button type="submit"
                             class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-gray-300 hover:text-black">
                             {{ $genre->genre }}
@@ -306,18 +307,25 @@
         </div>
         {{-- search books from table --}}
         <div class="relative mx-4 lg:mx-0">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
-                    <path
-                        d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    </path>
-                </svg>
-            </span>
+            <form action="{{ route('books.index') }}" method="post">
+                @method('get')
+                @csrf
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                    </svg>
+                </span>
 
-            <input
-                class="w-32 pl-10 pr-4 rounded-full my-3 border border-gray-200 form-input sm:w-64 focus:border-indigo-400"
-                type="text" placeholder="Search">
+                <input
+                    class="w-32 pl-10 pr-4 my-3  border border-gray-200 form-input sm:w-64 focus:border-none border-transparent focus:border-transparent focus:ring-0"
+                    type="text" placeholder="Search Book" name="search_book">
+                <button class=" bg-white ml-[-52px] py-2 px-4 mx-3 hover:bg-slate-300" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
         </div>
         <h2 class="text-3xl text-gray-700">Recently Added Books</h2>
         <div class="flex flex-col mt-8">
