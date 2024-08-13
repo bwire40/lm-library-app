@@ -87,7 +87,7 @@
 
         <div class="my-8 flex flex-col md:flex-row items-start">
             <!-- Modal toggle -->
-            <button data-modal-target="crud-modal" ="crud-modal"
+            <button data-modal-target="crud-modal" data-modal-toggle=""="crud-modal"
                 class="block my-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 w-full md:mx-3
                 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                 type="button">
@@ -183,13 +183,9 @@
                                             <div class="flex-shrink-0 w-10 h-10">
                                                 <img class="w-10 h-10 rounded-full"
                                                     src="{{ asset('images/' ) }}" alt="">
-                                            </div>
-                                      </div>
+q                                      </div>
                                     </td>
-
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
-                                    </div> --}}
                                         <div class="text-sm leading-5 text-gray-500"></div>
                                     </td>
                                     <td
