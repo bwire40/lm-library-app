@@ -2,10 +2,10 @@
     <section class="relative my-10">
         @include('shared.success_message')
         @include('shared.error_messages')
-        <div class="w-full mx-auto px-4 sm:px-6 lg:px-0">
+        <div class="w-full mx-auto overflow-hidden mt-10 md:mt-20  sm:px-6 lg:px-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mx-auto max-md:px-2 ">
                 <div class="img p-2">
-                    <div class="img-box h-full max-lg:mx-auto rounded-lg ">
+                    <div class="img-box object-contain h-full max-lg:mx-auto rounded-lg ">
                         <img src="{{ asset('images/' . $book->image) }}" alt="Yellow Tropical Printed Shirt image"
                             class="max-lg:mx-auto lg:ml-auto h-full rounded-lg">
                     </div>
@@ -13,7 +13,8 @@
                 <div
                     class="data w-full lg:pr-8 pr-0 xl:justify-start justify-center flex items-center max-lg:pb-10 xl:my-2 lg:my-5 my-0">
                     <div class="data w-full max-w-xl">
-                        <p class="text-lg font-medium leading-8 text-indigo-600 mb-4">books&nbsp; /&nbsp;
+                        <p class="text-lg font-medium leading-8 text-indigo-600 mb-4"><span><a
+                                    href="{{ route('books.index') }}">books</a></span>&nbsp; /&nbsp;
                             {{ $book->genre }}
                         </p>
                         <h2 class="font-manrope font-bold text-3xl leading-10 text-gray-900 mb-2 capitalize">
@@ -24,7 +25,7 @@
                         </div>
                         <article class="text-gray-500 text-base font-normal mb-5">
                             <span class="text-sm font-bold text-black leading-3">Description...</span> <br> <br>
-                            {{ $book->description }}
+                            {{ Str::of($book->description)->limit(500) }}
                         </article>
 
                         <p class="text-gray-500 text-base font-normal mb-5">
