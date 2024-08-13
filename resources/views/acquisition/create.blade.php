@@ -4,13 +4,14 @@
     <form id="borrow-form" action="{{ route('acquisition.store') }}" method="POST">
         @csrf
 
-        <div class="flex flex-col justify-between md:flex-row sm:flex-col items-center mb-6">
+        <div class="flex flex-col justify-between md:flex-row sm:flex-col items-center mb-6 px-6">
             <div>
-                <h2 id="modal-book-title" class="text-2xl font-semibold mb-2"></h2>
-                <h2 id="modal-book-genre" class="text-2xl font-semibold mb-2"></h2>
-                <p id="modal-book-author" class="text-gray-600 mb-4"></p>
+                <h2 id="modal-book-title" class="text-2xl font-semibold mb-2">{{ $book->title }}</h2>
+                <h2 id="modal-book-genre" class="text-md leading-3 font-semibold mb-2">{{ $book->genre }}</h2>
+                <p id="modal-book-author" class="text-gray-600 mb-4">{{ $book->author }}</p>
             </div>
-            <img id="modal-book-image" src="" alt="" class="w-48 h-32 object-cover rounded-lg shadow-lg">
+            <img id="modal-book-image" src="{{ asset('images/' . $book->image) }}" alt=""
+                class=" w-56 h-56 object-cover rounded-lg shadow-lg">
         </div>
 
         <input type="hidden" id="book-id" name="book_id" value="">
@@ -21,7 +22,8 @@
                 <input id="issue-date-picker" name="issue_date" class="flex-1 p-3 rounded-lg border border-gray-300"
                     placeholder="Select a date" type="text" />
                 <button id="edit-issue-date"
-                    class="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400" type="button">Set
+                    class="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400"
+                    type="button">Set
                     Issue Date</button>
             </div>
         </div>
@@ -55,52 +57,55 @@
                 <input id="due-date-picker" name="due_date" class="flex-1 p-3 rounded-lg border border-gray-300"
                     placeholder="Select a date" type="text" />
                 <button id="edit-due-date"
-                    class="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400" type="button">Set
+                    class="px-4 py-2 bg-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-400"
+                    type="button">Set
                     Due Date</button>
             </div>
         </div>
 
-        <button id="confirm-borrow" type="button" class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">Confirm borrow</button>
+        <button id="confirm-borrow" type="button"
+            class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">Confirm
+            borrow</button>
     </form>
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const userDropdown = document.getElementById('user-dropdown');
-    const emailInput = document.getElementById('user-email');
-    const numberInput = document.getElementById('user-number');
-    const bookIdInput = document.getElementById('book-id');
-    const issueDateInput = document.getElementById('issue-date-picker');
-    const dueDateInput = document.getElementById('due-date-picker');
-    const confirmBorrowButton = document.getElementById('confirm-borrow');
-    const borrowForm = document.getElementById('borrow-form');
+        const userDropdown = document.getElementById('user-dropdown');
+        const emailInput = document.getElementById('user-email');
+        const numberInput = document.getElementById('user-number');
+        const bookIdInput = document.getElementById('book-id');
+        const issueDateInput = document.getElementById('issue-date-picker');
+        const dueDateInput = document.getElementById('due-date-picker');
+        const confirmBorrowButton = document.getElementById('confirm-borrow');
+        const borrowForm = document.getElementById('borrow-form');
 
-    userDropdown.addEventListener('change', function() {
-        const selectedOption = userDropdown.options[userDropdown.selectedIndex];
-        const email = selectedOption.getAttribute('data-email');
-        const number = selectedOption.getAttribute('data-number');
-        emailInput.value = email;
-        numberInput.value = number;
+        userDropdown.addEventListener('change', function() {
+            const selectedOption = userDropdown.options[userDropdown.selectedIndex];
+            const email = selectedOption.getAttribute('data-email');
+            const number = selectedOption.getAttribute('data-number');
+            emailInput.value = email;
+            numberInput.value = number;
+        });
+
+        confirmBorrowButton.addEventListener('click', function() {
+            const issueDate = issueDateInput.value;
+            const dueDate = dueDateInput.value;
+            const userId = userDropdown.value;
+            const phoneNumber = numberInput.value;
+            const email = emailInput.value;
+            const bookId = bookIdInput.value;
+
+            // Check if all required fields are filled
+            if (!issueDate || !dueDate || !userId || !phoneNumber || !email) {
+                alert('Please fill in all fields before submitting.');
+                return;
+            }
+
+            // Submit the form if validation passes
+            borrowForm.submit();
+        });
     });
-
-    confirmBorrowButton.addEventListener('click', function() {
-        const issueDate = issueDateInput.value;
-        const dueDate = dueDateInput.value;
-        const userId = userDropdown.value;
-        const phoneNumber = numberInput.value;
-        const email = emailInput.value;
-        const bookId = bookIdInput.value;
-
-        // Check if all required fields are filled
-        if (!issueDate || !dueDate || !userId || !phoneNumber || !email) {
-            alert('Please fill in all fields before submitting.');
-            return;
-        }
-
-        // Submit the form if validation passes
-        borrowForm.submit();
-    });
-});
 
 
     // Date Picker Initialization
