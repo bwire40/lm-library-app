@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('acquisitions', function (Blueprint $table) {
             $table->id(); // primary key
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone');
             $table->string('issue_date');
             $table->string('due_date');
-            $table->string('return_date');
+            $table->string('return_date')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('guest_id')->constrained()->onDelete('cascade');
             $table->foreignId('book_id')->constrained()->onDelete('cascade');

@@ -10,11 +10,12 @@ class Acquisition extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'book_code',
+        'guest_id',
+        'book_id',
         'issue_date',
         'due_date',
-        'return_date',
+        'email',
+        'phone',
     ];
 
     /**
@@ -22,7 +23,11 @@ class Acquisition extends Model
      */
     public function user()
     {
-        return $this->belongsTo(Guest::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function guest()
+    {
+        return $this->belongsTo(Guest::class, 'guest_id');
     }
 
     /**

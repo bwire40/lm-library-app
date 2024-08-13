@@ -38,15 +38,13 @@
 
                 @foreach ($books as $book)
                     <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4">
-                        <div class="flex items-center" data-book-code="{{ $book->book_code }}"
-                            data-genre="{{ $book->genre }}" data-genre-id="{{ $book->genre_id }}">
+                        <div class="flex items-center">
                             <img src="{{ asset('images/' . $book->image) }}" alt="{{ $book->title }}"
-                                class="w-12 h-16 object-cover rounded mr-4"
-                                data-image="{{ asset('images/' . $book->image) }}">
+                                class="w-12 h-16 object-cover rounded mr-4">
                             <div>
-                                <h3 class="text-lg font-semibold" data-title="{{ $book->title }}">{{ $book->title }}
+                                <h3 class="text-lg font-semibold">{{ $book->title }}
                                 </h3>
-                                <p class="text-gray-600" data-author="{{ $book->author }}">By: {{ $book->author }}</p>
+                                <p class="text-gray-600">By: {{ $book->author }}</p>
                             </div>
                         </div>
 
@@ -76,49 +74,11 @@
 
         borrowButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Find the closest parent div containing book information
-                const parentDiv = this.closest('.flex.items-center');
-
-                // Check if parentDiv exists
-                if (!parentDiv) {
-                    console.error('Parent div not found');
-                    return;
-                }
-
-
-                // Retrieve data attributes from the parentDiv
-                const bookCode = parentDiv.querySelector('[data-book-code]')?.getAttribute(
-                    'data-book-code');
-                const genre = parentDiv.querySelector('[data-genre]')?.getAttribute(
-                    'data-genre');
-                const genreId = parentDiv.querySelector('[data-genre-id]')?.getAttribute(
-                    'data-genre-id');
-                const title = parentDiv.querySelector('[data-title]')?.getAttribute(
-                    'data-title');
-                const author = parentDiv.querySelector('[data-author]')?.getAttribute(
-                    'data-author');
-                const image = parentDiv.querySelector('[data-image]')?.getAttribute(
-                    'data-image');
-
-                // Check if values are null or undefined
-                if (!title || !author || !image || !bookCode || !genre || !genreId) {
-                    console.error('Missing data attributes');
-                    return;
-                }
-
-                // Set the modal content
-                document.getElementById('modal-book-title').textContent = title;
-                document.getElementById('modal-book-genre').textContent = genre;
-                document.getElementById('modal-book-author').textContent = `By: ${author}`;
-                document.getElementById('modal-book-image').src = image;
-                document.getElementById('book-id').value = bookCode;
-
                 // Open the modal
                 const modal = document.querySelector('.acquisition-modal');
                 if (modal) {
                     modal.classList.remove('hidden'); // Show the modal
                 }
-
 
             });
         });
