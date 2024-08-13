@@ -47,34 +47,38 @@ class AcquisitionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,Book $book)
     {
 
         // Validate the request data
         $validatedData = $request->validate([
-            // 'user_id' => 'required|exists:guests,id',
-            // 'book_id' => 'required|exists:books,book_code',
-            'issue_date' => 'required|date',
-            'due_date' => 'required|date',
-            'return_date' => 'nullable|date',
+            'email' => 'required',
+            'phone' => 'required',
+            'guest_id' => 'required',
+            'book_id' => 'required',
+            'issue_date' => 'required',
+            'due_date' => 'required',
+
         ]);
 
         // Create a new acquisition record
-        Acquisition::create([
-            // 'user_id' => $validatedData['user_id'],
-            // 'book_code' => $validatedData['book_id'],
+        $request->user()->acquisition()->create([
+            'guest_id' => $validatedData['guest_id'],
+            'book_id' => $validatedData['book_id'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'],
             'issue_date' => $validatedData['issue_date'],
             'due_date' => $validatedData['due_date'],
-            'return_date' => $validatedData['return_date'] ?? null,
         ]);
 
         // Optionally, reduce the number of available copies in the Book model
-        // $book = Book::where('book_code', $validatedData['book_id'])->first();
-        // if ($book) {
-        //     $book->decrement('copies_number');
-        // }
+        $book = Book::where('id', $validatedData['book_id'])->first();
+        if ($book) {
+            $book->decrement('copies_number');
+        }
 
-        return redirect()->route('acquisition.index')->with('success', 'Book borrowed successfully!');
+        return redirect()->route('acquisition.index',compact('book'))->with('success', 'Book borrowed successfully!');
+
     }
 
 
