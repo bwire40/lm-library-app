@@ -20,6 +20,7 @@ class Admin
         // check if the authenticated type is admin
         if ($userType == "admin") {
 
+
             return $next($request);
         }
         abort(404);
