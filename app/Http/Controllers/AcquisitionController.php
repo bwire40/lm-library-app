@@ -14,14 +14,29 @@ class AcquisitionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Fetch all genres
         $genres = Genre::all();
         // Fetch all guests that are active
         $guests = Guest::where('status', '=', 'active')->get();
-        // Fetch all available books
-        $books = Book::where('copies_number', '>', 0)->get();
+        // Initialize query for books
+        $booksQuery = Book::where('copies_number', '>', 0);
+
+        // Apply search filter
+        if ($search = $request->input('search')) {
+            $booksQuery->where('title', 'like', "%{$search}%")
+                       ->orWhere('author', 'like', "%{$search}%");
+        }
+
+        // Apply genre filter
+        if ($genre = $request->input('genre')) {
+            $booksQuery->where('genre', 'like', "%{$genre}%");
+        }
+
+        // Get the filtered books
+        $books = $booksQuery->paginate(5);
+
         // If no genres exist, set $genres to null
         if ($genres->isEmpty()) {
             $genres = null;
@@ -35,11 +50,13 @@ class AcquisitionController extends Controller
             $guests = null;
         }
 
-        //
-        return view('acquisition.index', compact('genres', 'books', 'guests'));
+        return view('acquisition.index', [
+            'genres' => $genres,
+            'books' => $books,
+            'guests'=> $guests,
+        ]);
     }
-
-    /**
+/**
      * Show the form for creating a new resource.
      */
     public function create(Book $book) {}
@@ -71,7 +88,7 @@ class AcquisitionController extends Controller
             'due_date' => $validatedData['due_date'],
         ]);
 
-        // Optionally, reduce the number of available copies in the Book model
+        // Reduce the number of available copies in the Book model
         $book = Book::where('id', $validatedData['book_id'])->first();
         if ($book) {
             $book->decrement('copies_number');
@@ -115,3 +132,4 @@ class AcquisitionController extends Controller
         //
     }
 }
+
