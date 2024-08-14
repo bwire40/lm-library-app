@@ -286,153 +286,167 @@
         </div>
 
         <!-- Refine by section -->
-        <div class="mb-8">
-            <h2 class="text-xl font-semibold mb-4">Available Genres</h2>
+        <div class="my-10">
+            {{-- <h2 class="text-3xl font-bold mb-4">Genres</h2> --}}
 
-            <!-- Genre buttons --search by genres-->
-            <div class="flex flex-wrap gap-2 mb-4">
-                @foreach ($genres as $genre)
-                    <form action="{{ route('books.index') }}" method="post">
-                        @csrf
-                        @method('get')
-                        <input type="text" name="genre_search" value="{{ $genre->genre }}" hidden>
-                        <button type="submit"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-gray-300 hover:text-black">
-                            {{ $genre->genre }}
-                        </button>
-                    </form>
-                @endforeach
-            </div>
+            @if ($genre_count > 0)
+                <!-- Genre buttons --search by genres-->
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <a href="{{ route('books.index') }}"
+                        class="px-4 py-2 bg-slate-800 text-white rounded-full hover:bg-gray-300 hover:text-black">All</a>
+                    @foreach ($genres as $genre)
+                        <form action="{{ route('books.index') }}" method="post">
+                            @csrf
+                            @method('get')
+                            <input type="text" name="genre_search" value="{{ $genre->genre }}" hidden>
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-gray-300 hover:text-black">
+                                {{ $genre->genre }}
+                            </button>
+                        </form>
+                    @endforeach
 
-        </div>
-        {{-- search books from table --}}
-        <div class="relative mx-4 lg:mx-0">
-            <form action="{{ route('books.index') }}" method="post">
-                @method('get')
-                @csrf
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
-                        <path
-                            d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        </path>
-                    </svg>
-                </span>
-
-                <input
-                    class="w-32 pl-10 pr-4 my-3  border border-gray-200 form-input sm:w-64 focus:border-none border-transparent focus:border-transparent focus:ring-0"
-                    type="text" placeholder="Search Book" name="search_book">
-                <button class=" bg-white ml-[-52px] py-2 px-4 mx-3 hover:bg-slate-300" type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
-        </div>
-        <h2 class="text-3xl text-gray-700">Recently Added Books</h2>
-        <div class="flex flex-col mt-8">
-            <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                <div
-                    class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                    <table class="min-w-full">
-                        <thead>
-                            <tr>
-                                <th
-                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Title</th>
-
-                                <th
-                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Book code</th>
-                                <th
-                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    genre</th>
-                                <th
-                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    date published</th>
-                                <th
-                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Availability</th>
-                                <th
-                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Number of Copies</th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="bg-white">
-
-                            @foreach ($books as $book)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 w-10 h-10">
-                                                <img class="w-10 h-10 rounded-full"
-                                                    src="{{ asset('images/' . $book->image) }}" alt="">
-                                            </div>
-
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium leading-5 text-gray-900">
-                                                    Name: {{ $book->title }}
-                                                </div>
-                                                <div class="text-sm leading-5 text-gray-500">
-                                                    Author: {{ $book->author }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
-                                    </div> --}}
-                                        <div class="text-sm leading-5 text-gray-500">{{ $book->book_code }}</div>
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        {{ $book->genre }}</td>
-                                    <td
-                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800">{{ $book->date_published }}
-                                        </div>
-                                    </td>
-
-
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        @if ($book->copies_number > 0)
-                                            <span
-                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Yes</span>
-                                        @else
-                                            <span
-                                                class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">No</span>
-                                        @endif
-
-                                    </td>
-
-
-                                    <td
-                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800">{{ $book->copies_number }}
-                                        </div>
-                                    </td>
-                                    <td
-                                        class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                        <a href="{{ route('books.edit', $book->id) }}"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-
-                                        <form action="{{ secure_url(route('books.destroy', $book->id)) }}"
-                                            method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                class="text-red-600 hover:text-red-900">delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
                 </div>
-            </div>
-            {{ $books->links() }}
+            @else
+                <p class="my-4">No genres available.</p>
+            @endif
+
         </div>
+
+        <h2 class="text-3xl text-gray-700 my-10 font-bold">Recently Added Books</h2>
+        @if ($books->sum('copies_number') > 0)
+            {{-- search books from table --}}
+            <div class="relative mx-4 lg:mx-0">
+                <form action="{{ route('books.index') }}" method="post">
+                    @method('get')
+                    @csrf
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </path>
+                        </svg>
+                    </span>
+
+                    <input
+                        class="w-32 pl-10 pr-4 my-3  border border-gray-200 form-input sm:w-64 focus:border-none border-transparent focus:border-transparent focus:ring-0"
+                        type="text" placeholder="Search Book" name="search_book">
+                    <button class=" bg-white ml-[-52px] py-2 px-4 mx-3 hover:bg-slate-300" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="flex flex-col mt-8">
+                <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                    <div
+                        class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Title</th>
+
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Book code</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        genre</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        date published</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Availability</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Number of Copies</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="bg-white">
+
+                                @foreach ($books as $book)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0 w-10 h-10">
+                                                    <img class="w-10 h-10 rounded-full"
+                                                        src="{{ asset('images/' . $book->image) }}" alt="">
+                                                </div>
+
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium leading-5 text-gray-900">
+                                                        Name: {{ $book->title }}
+                                                    </div>
+                                                    <div class="text-sm leading-5 text-gray-500">
+                                                        Author: {{ $book->author }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
+                                    </div> --}}
+                                            <div class="text-sm leading-5 text-gray-500">{{ $book->book_code }}</div>
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            {{ $book->genre }}</td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">{{ $book->date_published }}
+                                            </div>
+                                        </td>
+
+
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            @if ($book->copies_number > 0)
+                                                <span
+                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Yes</span>
+                                            @else
+                                                <span
+                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">No</span>
+                                            @endif
+
+                                        </td>
+
+
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">{{ $book->copies_number }}
+                                            </div>
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                            <a href="{{ route('books.edit', $book->id) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+
+                                            <form action="{{ secure_url(route('books.destroy', $book->id)) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="text-red-600 hover:text-red-900">delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{ $books->links() }}
+            </div>
+        @else
+            <p class="my-4">No books available yet</p>
+        @endif
+
     </div>
 </x-app-layout>
 
