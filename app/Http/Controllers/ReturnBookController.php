@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ReturnBook;
 use App\Http\Controllers\Controller;
 use App\Models\Acquisition;
+use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReturnBookController extends Controller
@@ -12,12 +14,14 @@ class ReturnBookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Acquisition $acquisition)
+    public function index(Request $request, Acquisition $acquisition, Book $book)
     {
-        //
-        return view("returns.index", [
-            $acquisition,
-        ]);
+
+        $overdueDays = $acquisition->overdue_days;
+
+        $acquisitions = Acquisition::orderBy("created_at", "desc")->paginate(5);
+        // dump($acquisition->issueDate);
+        return view("returns.index", compact("acquisitions", "overdueDays"));
     }
 
     /**
@@ -63,8 +67,9 @@ class ReturnBookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ReturnBook $returnBook)
+    public function destroy(ReturnBook $returnBook, Acquisition $acquisition)
     {
         //
+
     }
 }
