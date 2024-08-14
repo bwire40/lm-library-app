@@ -11,7 +11,7 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Book $book)
     {
 
         // perform a books genre search
@@ -31,11 +31,14 @@ class BookController extends Controller
         $genres = Genre::all();
 
         $count = Book::count();
+        $genre_count = Genre::count();
 
         return view("books.index", [
             "genres" => $genres,
             "books" => $books->paginate(5),
-            "count" => $count
+            "count" => $count,
+            "genre_count" => $genre_count
+
         ]);
     }
 
