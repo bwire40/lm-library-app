@@ -37,19 +37,6 @@ class AcquisitionController extends Controller
         // Get the filtered books
         $books = $booksQuery->paginate(5);
 
-        // If no genres exist, set $genres to null
-        if ($genres->isEmpty()) {
-            $genres = null;
-        }
-        // If no books exist, set $books to null
-        if ($books->isEmpty()) {
-            $books = null;
-        }
-        // If no books exist, set $books to null
-        if ($guests->isEmpty()) {
-            $guests = null;
-        }
-
         return view('acquisition.index', [
             'genres' => $genres,
             'books' => $books,

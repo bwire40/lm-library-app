@@ -2,14 +2,15 @@
 
     <div class="max-w-4xl mx-auto mt-4 mb-4 px-4">
 
-        @include("shared.error_messages")
-        @include("shared.success_message")
+        @include('shared.error_messages')
+        @include('shared.success_message')
         <h1 class="text-3xl font-bold mb-6">Borrow Books</h1>
 
         <!-- Search Form -->
         <form method="GET" action="{{ route('acquisition.index') }}" class="mb-6">
             <div class="relative mb-4">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search for a title or author"
+                <input type="text" name="search" value="{{ request('search') }}"
+                    placeholder="Search for a title or author"
                     class="w-full p-3 pl-10 rounded-xl border border-gray-300">
                 <!-- Search Icon -->
                 <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
@@ -26,19 +27,13 @@
             @if ($genres)
                 <div class="flex flex-wrap gap-2">
                     @foreach ($genres as $genre)
-                        <button
-                            type="submit"
-                            name="genre"
-                            value="{{ $genre->genre }}"
+                        <button type="submit" name="genre" value="{{ $genre->genre }}"
                             class="px-4 py-2 {{ request('genre') === $genre->genre ? 'bg-gray-600 text-white' : 'bg-blue-600 text-white' }} rounded-full hover:bg-gray-600">
                             {{ $genre->genre }}
                         </button>
                     @endforeach
                     <!-- Clear Genre Filter Button -->
-                    <button
-                        type="submit"
-                        name="genre"
-                        value=""
+                    <button type="submit" name="genre" value=""
                         class="px-4 py-2 {{ request('genre') === '' ? 'bg-gray-600 text-white' : 'bg-blue-800 text-white' }} rounded-full hover:bg-gray-600">
                         Clear Genre Filter
                     </button>
@@ -50,7 +45,7 @@
 
         <!-- Book Listing -->
         <div>
-            @if ($books->count())
+            @if ($books->count() > 0)
                 @foreach ($books as $book)
                     <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4">
                         <div class="flex items-center">

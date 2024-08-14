@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ReturnBook;
 use App\Http\Controllers\Controller;
 use App\Models\Acquisition;
+use App\Models\Guest;
 use App\Models\Book;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,11 +18,12 @@ class ReturnBookController extends Controller
     public function index(Request $request, Acquisition $acquisition, Book $book)
     {
 
-        $overdueDays = $acquisition->overdue_days;
+        // $overdueDays = $acquisition->overdue_days;
 
         $acquisitions = Acquisition::orderBy("created_at", "desc")->paginate(5);
+        $guests=Guest::all();
         // dump($acquisition->issueDate);
-        return view("returns.index", compact("acquisitions", "overdueDays"));
+        return view("returns.index", compact("acquisitions","book","guests"));
     }
 
     /**
