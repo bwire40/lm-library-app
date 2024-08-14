@@ -1,8 +1,7 @@
 <div class="max-w-3xl mx-auto my-5 px-4">
-
     <h1 class="text-3xl font-bold mb-4">Borrow this book</h1>
 
-    <form id="borrow-form" action="{{ route('acquisition.store') }}" method="POST">
+    <form class="borrow-form" action="{{ route('acquisition.store') }}" method="POST">
         @csrf
         @method('post')
 
@@ -20,7 +19,7 @@
 
         <div class="mb-4">
             <h3 class="text-xl font-semibold mb-4">Issue date</h3>
-            <input id="issue-date-" name="issue_date" class="flex-1 p-3 rounded-lg border border-gray-300"
+            <input name="issue_date" class="flex-1 p-3 rounded-lg border border-gray-300"
                 placeholder="Select a date" type="date" />
             @error('issue_date')
                 <p class="text-red-500 my-2">{{ $message }}</p>
@@ -31,7 +30,7 @@
             <h3 class="text-xl font-semibold mb-4">User information</h3>
 
             <!-- Dropdown for Full name -->
-            <select id="user-dropdown" name="guest_id" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+            <select name="guest_id" class="user-dropdown w-full p-3 mb-4 rounded-lg border border-gray-300">
                 <option value="">Select users</option>
                 @if ($guests)
                     @foreach ($guests as $guest)
@@ -43,23 +42,23 @@
                 @endif
             </select>
             <!-- Email address -->
-            <input id="user-email" name="email" type="email" placeholder="Email address"
-                class="w-full p-3 mb-4 rounded-lg border border-gray-300" readonly>
+            <input id="user-email" name="email" class="user-email w-full p-3 mb-4 rounded-lg border border-gray-300" type="email" placeholder="Email address"
+                readonly>
             <!-- Phone number -->
-            <input id="user-number" name="phone" type="text" placeholder="Phone number"
-                class="w-full p-3 mb-4 rounded-lg border border-gray-300" readonly>
+            <input id="user-number" name="phone" class="user-number w-full p-3 mb-4 rounded-lg border border-gray-300" type="text" placeholder="Phone number"
+                readonly>
         </div>
 
         <div class="mb-4">
             <h3 class="text-xl font-semibold mb-4">Due date</h3>
-            <input id="due-date-picker" name="due_date" class="flex-1 p-3 rounded-lg border border-gray-300"
+            <input name="due_date" class="flex-1 p-3 rounded-lg border border-gray-300"
                 placeholder="Select a date" type="date" />
             @error('due_date')
                 <p class="text-red-500 my-2">{{ $message }}</p>
             @enderror
         </div>
 
-        <button id="confirm-borrow" type="submit"
+        <button type="submit"
             class="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">Confirm
             borrow</button>
     </form>
@@ -67,9 +66,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const userDropdown = document.getElementById('user-dropdown');
-        const emailInput = document.getElementById('user-email');
-        const numberInput = document.getElementById('user-number');
+    // Select all forms
+    const forms = document.querySelectorAll('.borrow-form');
+
+    forms.forEach(form => {
+        const userDropdown = form.querySelector('.user-dropdown');
+        const emailInput = form.querySelector('.user-email');
+        const numberInput = form.querySelector('.user-number');
 
         userDropdown.addEventListener('change', function() {
             const selectedOption = userDropdown.options[userDropdown.selectedIndex];
@@ -78,6 +81,7 @@
             emailInput.value = email;
             numberInput.value = number;
         });
-
     });
+});
+
 </script>
