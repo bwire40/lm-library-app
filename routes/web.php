@@ -8,8 +8,10 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReturnBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
+use App\Models\ReturnBook;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -26,12 +28,14 @@ Route::resource('/books', BookController::class)
 Route::resource('/acquisition', AcquisitionController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified', Admin::class]);
-// fee route
-Route::resource('/fees', FeeModuleController::class)
+
+
+// return book routes
+Route::resource('/return', ReturnBookController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified', Admin::class]);
-// users route
 
+// users route
 Route::resource('/users', UserController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified', Admin::class]);

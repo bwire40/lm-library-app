@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FeeModule;
+use App\Models\ReturnBook;
+use App\Http\Controllers\Controller;
+use App\Models\Acquisition;
 use Illuminate\Http\Request;
 
-class FeeModuleController extends Controller
+class ReturnBookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function index(Request $request, Acquisition $acquisition)
+    {
+        //
+        return view("returns.index", [
+            $acquisition,
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -22,11 +31,15 @@ class FeeModuleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
      */
-    public function show(FeeModule $fees)
+    public function show(ReturnBook $returnBook)
     {
         //
     }
@@ -34,7 +47,7 @@ class FeeModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FeeModule $fees)
+    public function edit(ReturnBook $returnBook)
     {
         //
     }
@@ -42,7 +55,7 @@ class FeeModuleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FeeModule $fees)
+    public function update(Request $request, ReturnBook $returnBook)
     {
         //
     }
@@ -50,7 +63,7 @@ class FeeModuleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FeeModule $fees)
+    public function destroy(ReturnBook $returnBook)
     {
         //
     }
