@@ -26,7 +26,7 @@ class AcquisitionController extends Controller
         // Apply search filter
         if ($search = $request->input('search')) {
             $booksQuery->where('title', 'like', "%{$search}%")
-                       ->orWhere('author', 'like', "%{$search}%");
+                ->orWhere('author', 'like', "%{$search}%");
         }
 
         // Apply genre filter
@@ -53,10 +53,10 @@ class AcquisitionController extends Controller
         return view('acquisition.index', [
             'genres' => $genres,
             'books' => $books,
-            'guests'=> $guests,
+            'guests' => $guests,
         ]);
     }
-/**
+    /**
      * Show the form for creating a new resource.
      */
     public function create(Book $book) {}
@@ -64,7 +64,7 @@ class AcquisitionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Book $book)
+    public function store(Request $request, Book $book)
     {
 
         // Validate the request data
@@ -94,8 +94,7 @@ class AcquisitionController extends Controller
             $book->decrement('copies_number');
         }
 
-        return redirect()->route('acquisition.index',compact('book'))->with('success', 'Book borrowed successfully!');
-
+        return redirect()->route('acquisition.index', compact('book'))->with('success', 'Book borrowed successfully!');
     }
 
 
@@ -130,6 +129,7 @@ class AcquisitionController extends Controller
     public function destroy(Acquisition $acquisition)
     {
         //
+        $acquisition->delete();
+        return redirect()->route('return.index')->with('success', 'Deleted Successfully!');
     }
 }
-

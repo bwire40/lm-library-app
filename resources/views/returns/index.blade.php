@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ ('#') }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $acquisitions->count() }}</h4>
                             <div class="text-gray-500">Borroweers</div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ ('#') }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ '#' }}</h4>
                             <div class="text-gray-500">Returned Books</div>
                         </div>
                     </div>
@@ -95,17 +95,17 @@
             </button>
 
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-            class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
+                class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
             focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button">
-            Send Notification To Borrowers
-        </button>
-        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-        class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
+                type="button">
+                Send Notification To Borrowers
+            </button>
+            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
         focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        type="button">
-        Print Borrower Report
-    </button>
+                type="button">
+                Print Borrower Report
+            </button>
 
 
             <!-- Main modal -->
@@ -118,28 +118,30 @@
 
                     <section class="bg-slate-50 shadow-2xl text-white dark:bg-gray-900 rounded-lg px-5">
 
-                            <form action="{{ route('books.store') }}" method="post" enctype="multipart/form-data">
-                                </div>
-                                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-
-                                    <div class="w-full">
-
-                                        <input type="text" name="title" id="title"
-                                            class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-                                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                            placeholder="eg. John Doe" required>
-
-
-                                    </div>
-
-                                </div>
-
-
-                    </section>
+                        <form action="{{ route('books.store') }}" method="post" enctype="multipart/form-data">
                 </div>
-            </div>
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
-            <h2 class="text-3xl text-gray-700">Recently Borrowed Books</h2>
+                    <div class="w-full">
+
+                        <input type="text" name="title" id="title"
+                            class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="eg. John Doe" required>
+
+
+                    </div>
+
+                </div>
+
+
+                </section>
+            </div>
+        </div>
+
+
+        @include('shared.success_message')
+        <h2 class="text-3xl text-gray-700">Recently Borrowed Books</h2>
         <div class="flex flex-col mt-8">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                 <div
@@ -149,7 +151,7 @@
                             <tr>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Name</th>
+                                    Borrower Name</th>
 
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
@@ -160,13 +162,14 @@
                                     date Borrowed</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                    Due date</th>
+                                <th
+                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Date Returned</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Overdue Days</th>
-                                <th
-                                    class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Number of Books borrowed</th>
+
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Fees</th>
@@ -175,65 +178,97 @@
                         </thead>
 
                         <tbody class="bg-white">
-
-
+                            @foreach ($acquisitions as $acquisition)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
+                                        <div class="flex items-center justify-between">
                                             <div class="flex-shrink-0 w-10 h-10">
                                                 <img class="w-10 h-10 rounded-full"
-                                                    src="{{ asset('images/' ) }}" alt="">
-q                                      </div>
+                                                    src="{{ asset('images/' . $acquisition->book->image) }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="text-sm leading-5 text-gray-500 ">
+                                                <p class="font-bold text-sm">Name:
+                                                    {{ $acquisition->guest->name }}</p>
+                                                <p class="font-bold text-sm">Book Name: {{ $acquisition->book->title }}
+                                                </p>
+
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-500"></div>
+                                        <div class="text-sm leading-5 text-gray-500">
+
+                                            {{ $acquisition->book->book_code }}
+                                        </div>
                                     </td>
                                     <td
                                         class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        </td>
-                                    <td
-                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-800">
+                                        <div class="text-sm leading-5 text-gray-500">
+                                            {{ $acquisition->issue_date }}
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    </td>
                                     <td
                                         class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                         <div class="text-sm leading-5 text-gray-800">
+                                            {{ $acquisition->due_date }}
                                         </div>
                                     </td>
                                     <td
                                         class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                         <div class="text-sm leading-5 text-gray-800">
+                                            {{ $acquisition->return_date }}
+                                        </div>
+                                    </td>
+                                    {{-- @php
+                                        // Define the two dates
+                                        $today = new DateTime();
+                                        $date2 = new DateTime($acquisition->due_date);
+
+                                        // Calculate the difference
+                                        $interval = $date2->diff($today);
+
+                                        $overdue = $interval->format('%y years, %m months, %d days');
+                                    @endphp --}}
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800">
+                                            {{ $overdueDays }}
+                                        </div>
+                                    </td>
+
+                                    {{-- fees --}}
+                                    <td
+                                        class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-800">
+                                            0
                                         </div>
                                     </td>
                                     <td
                                         class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                        <a href="{#}"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                            <a href="{#}"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-2">View More</a>
-                                            <a href="{#}"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-2">Delete</a>
-
-
-
-                                        <form action="{}"
+                                        <a href="{#}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+                                        {{-- <a href="{{ route('acquisition.destroy', $acquisition->id) }}"
+                                            class="text-indigo-600 hover:text-indigo-900 mr-2">View
+                                            More</a> --}}
+                                        <form action="{{ route('acquisition.destroy', $acquisition->id) }}"
                                             method="post">
-                                         <button type="submit"
-                                                class="text-red-600 hover:text-red-900">Print The Report</button>
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="text-red-600 hover:text-red-900 mr-2">
+                                                Delete</button>
                                         </form>
-                                        <form action="{}"
-                                            method="post">
-                                         <button type="submit"
+                                        {{-- <form action="{}" method="post">
+                                            <button type="submit" class="text-red-600 hover:text-red-900">Print
+                                                The
+                                                Report</button>
+                                        </form>
+                                        <form action="{}" method="post">
+                                            <button type="submit"
                                                 class="text-red-600 hover:text-red-900">Update</button>
-                                        </form>
+                                        </form> --}}
                                     </td>
                                 </tr>
-
-
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -243,7 +278,4 @@ q                                      </div>
 </x-app-layout>
 
 
-<script>
-
-
-</script>
+<script></script>
