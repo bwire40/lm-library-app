@@ -100,6 +100,7 @@ class AcquisitionController extends Controller
     public function edit(Acquisition $acquisition)
     {
         //
+        return view('returns.edit', compact("acquisition"));
     }
 
     /**
@@ -108,6 +109,12 @@ class AcquisitionController extends Controller
     public function update(Request $request, Acquisition $acquisition)
     {
         //
+        $validated = $request->validate([
+            'return_date' => 'required|date',
+        ]);
+        $acquisition->update(["return_date" => $validated["return_date"]]);
+
+        return redirect()->route("return.index")->with("success", "Successfully updated return!");
     }
 
     /**

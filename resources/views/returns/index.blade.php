@@ -83,33 +83,10 @@
             </div>
         </div>
 
-        <div class="my-8 flex flex-col md:flex-row items-start">
-            <!-- Modal toggle -->
-            <!-- Acquisition Modal Trigger -->
-            <x-acquisition-modal>
-                <x-slot name="trigger">
-                    <button
-                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 acquisition-borrow-button">
-                        Add Borrow
-                    </button>
-                </x-slot>
-
-                <!-- Modal Content -->
-                @include('acquisition.create')
-            </x-acquisition-modal>
-
-            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
-            focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button">
-                Send Notification To Borrowers
-            </button>
-            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
-        focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button">
-                Print Borrower Report
-            </button>
+        <div class="my-8 flex flex-col md:flex-row items-start ">
+            <a href="{{ route('downloadpdf') }}"
+                class="bg-slate-800 text-slate-100 p-3 rounded-full transition-all duration-300 hover:bg-slate-300 hover:text-slate-800">Download
+                report</a>
         </div>
 
 
@@ -241,11 +218,11 @@
                                         </td>
                                         <td
                                             class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                            <a href="{#}"
-                                                class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                            {{-- <a href="{{ route('acquisition.destroy', $acquisition->id) }}"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-2">View
-                                            More</a> --}}
+
+                                            {{-- @include('returns.includes.update_return') --}}
+                                            <a href="{{ route('acquisition.edit', $acquisition->id) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mr-2">View
+                                                More</a>
                                             <form action="{{ route('acquisition.destroy', $acquisition->id) }}"
                                                 method="post">
                                                 @csrf
@@ -276,5 +253,5 @@
     </div>
 </x-app-layout>
 
-e
+
 <script></script>
