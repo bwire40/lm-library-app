@@ -15,7 +15,7 @@ class BookController extends Controller
     public function index(Book $book)
     {
 
-        $acquisition = Acquisition::all();
+        $acquisition = Acquisition::orderBy("created_at", "desc")->paginate(5);
         // perform a books genre search
         $books = Book::orderBy("created_at", "desc");
         // chck if there is search

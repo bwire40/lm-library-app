@@ -31,7 +31,7 @@ class ReturnBookController extends Controller
         $pdf->save(storage_path('app/public/example.pdf'));
 
         // Return the PDF as a response
-        return $pdf->download('example.pdf');
+        return $pdf->download('acquisition_report.pdf');
     }
 
     /**

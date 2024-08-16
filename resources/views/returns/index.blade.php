@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container px-6 py-8 mx-auto">
-        <h3 class="text-3xl font-medium text-gray-700">Our Charges For Overdue and Lost Books</h3>
+        <h3 class="text-3xl font-medium text-gray-700">Return Books management module</h3>
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
@@ -246,6 +246,7 @@
                         </table>
                     </div>
                 </div>
+                {{ $acquisitions->links() }}
             </div>
         @else
             <p class="my-4 text-md">No books borrowed yet</p>

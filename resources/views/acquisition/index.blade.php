@@ -51,33 +51,43 @@
         <div>
             @if ($books->count() > 0)
                 @foreach ($books as $book)
-                    <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4">
-                        <div class="flex items-center">
+                    <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4 h-48">
+                        <div class="flex items-start">
                             <img src="{{ asset('images/' . $book->image) }}" alt="{{ $book->title }}"
-                                class="w-12 h-16 object-cover rounded mr-4">
+                                class=" w-40 h-40 object-cover rounded mr-4">
                             <div>
-                                <h3 class="text-lg font-semibold">{{ $book->title }}</h3>
+                                <h3 class="text-xl font-semibold">{{ $book->title }}</h3>
                                 <p class="text-gray-600">By: {{ $book->author }}</p>
+                                <p class="text-blue-600 text-sm italic">genre: {{ $book->genre }}</p>
+                                <p class="text-gray-600">Published: {{ $book->date_published }}</p>
                             </div>
                         </div>
 
-                        <!-- Acquisition Modal Trigger -->
-                        <x-acquisition-modal>
-                            <x-slot name="trigger">
-                                <button
-                                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 acquisition-borrow-button">
-                                    Borrow
-                                </button>
-                            </x-slot>
+                        <div>
+                            <!-- Acquisition Modal Trigger -->
+                            <x-acquisition-modal>
+                                <x-slot name="trigger">
+                                    <button
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-full transition-all duration-300 hover:bg-blue-700 acquisition-borrow-button">
+                                        Borrow
+                                    </button>
+                                </x-slot>
 
-                            <!-- Modal Content -->
-                            @include('acquisition.create')
-                        </x-acquisition-modal>
+                                <!-- Modal Content -->
+                                @include('acquisition.create')
+                            </x-acquisition-modal>
+                            <a href="{{ route('books.edit', $book->id) }}"
+                                class=" px-4 py-2 bg-blue-800 text-white rounded-full transition-all duration-300 hover:bg-blue-700 acquisition-borrow-button">Update
+                                book</a>
+                        </div>
+
                     </div>
                 @endforeach
             @else
                 <p class="text-gray-600">No books available.</p>
             @endif
+
+            {{ $books->links() }}
         </div>
     </div>
 </x-app-layout>
