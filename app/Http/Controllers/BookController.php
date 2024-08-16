@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acquisition;
 use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class BookController extends Controller
     public function index(Book $book)
     {
 
+        $acquisition = Acquisition::all();
         // perform a books genre search
         $books = Book::orderBy("created_at", "desc");
         // chck if there is search
@@ -37,7 +39,8 @@ class BookController extends Controller
             "genres" => $genres,
             "books" => $books->paginate(5),
             "count" => $count,
-            "genre_count" => $genre_count
+            "genre_count" => $genre_count,
+            "acquisition" => $acquisition
 
         ]);
     }

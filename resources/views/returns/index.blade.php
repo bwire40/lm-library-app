@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">00</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $acquisitions->count() }}</h4>
                             <div class="text-gray-500">Total Borrowed</div>
                         </div>
                     </div>
@@ -85,12 +85,18 @@
 
         <div class="my-8 flex flex-col md:flex-row items-start">
             <!-- Modal toggle -->
-            <button data-modal-target="crud-modal" data-modal-toggle=""="crud-modal"
-                class="block my-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 w-full md:mx-3
-                focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                type="button">
-                Add new Borrower
-            </button>
+            <!-- Acquisition Modal Trigger -->
+            <x-acquisition-modal>
+                <x-slot name="trigger">
+                    <button
+                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 acquisition-borrow-button">
+                        Add Borrow
+                    </button>
+                </x-slot>
+
+                <!-- Modal Content -->
+                @include('acquisition.create')
+            </x-acquisition-modal>
 
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                 class="block my-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 w-full md:mx-3
@@ -107,7 +113,10 @@
         </div>
 
 
+
+
         @include('shared.success_message')
+
         <h2 class="text-3xl text-gray-700 font-bold">Recently Borrowed Books</h2>
         @if ($acquisitions->count() > 0)
             <div class="flex flex-col mt-8">
@@ -203,9 +212,17 @@
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             <div class="text-sm leading-5 text-gray-800">
                                                 @if ($return_date >= $due_date)
-                                                    {{ $overdue . ' day(s)' }}
+                                                    @if ($overdue > 10)
+                                                        <p class="text-red-500 font-bold">{{ $overdue . ' day(s)' }}
+                                                        </p>
+                                                    @else
+                                                        <p class="text-yellow-600 font-bold">
+                                                            {{ $overdue . ' day(s)' }}
+                                                        </p>
+                                                    @endif
                                                 @else
-                                                    {{ '0 day(s)' }}
+                                                    <p class="text-green-600 font-bold">{{ '0 day(s)' }}
+                                                    </p>
                                                 @endif
 
                                             </div>

@@ -7,7 +7,9 @@
         <h1 class="text-3xl font-bold mb-6">Borrow Books</h1>
 
         <!-- Search Form -->
-        <form method="GET" action="{{ route('acquisition.index') }}" class="mb-6">
+        <form method="post" action="{{ route('acquisition.index') }}" class="mb-6">
+            @csrf
+            @method('get')
             <div class="relative mb-4">
                 <input type="text" name="search" value="{{ request('search') }}"
                     placeholder="Search for a title or author"
@@ -22,7 +24,9 @@
         </form>
 
         <!-- Genre Filter Form -->
-        <form method="GET" action="{{ route('acquisition.index') }}" class="mb-6">
+        <form method="POST" action="{{ route('acquisition.index') }}" class="mb-6">
+            @csrf
+            @method('GET')
             <h2 class="text-xl font-semibold mb-4">Refine by Genre</h2>
             @if ($genres)
                 <div class="flex flex-wrap gap-2">

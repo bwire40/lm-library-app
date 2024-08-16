@@ -18,12 +18,17 @@ class ReturnBookController extends Controller
     public function index(Request $request, Acquisition $acquisition, Book $book)
     {
 
-        // $overdueDays = $acquisition->overdue_days;
+
+        $books = Book::orderBy("created_at", "desc");
+        // check if there is a search
+        if (request()->has('search_book')) {
+            $books = $books->where('title', 'like', '%' . request()->get('search_book', '') . '%');
+        }
 
         $acquisitions = Acquisition::orderBy("created_at", "desc")->paginate(5);
-        $guests=Guest::all();
+        $guests = Guest::all();
         // dump($acquisition->issueDate);
-        return view("returns.index", compact("acquisitions","book","guests"));
+        return view("returns.index", compact("acquisitions", "book", "guests", "books"));
     }
 
     /**
