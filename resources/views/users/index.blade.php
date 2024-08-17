@@ -46,10 +46,11 @@
                                     <input id="dropzone-file" type="file" name="image" class="text-black lg:block"
                                         multiple />
                                 </label>
-                                @error('image')
-                                    <p class="text-red-500 my-2">{{ $message }}</p>
-                                @enderror
+
                             </div>
+                            @error('image')
+                                <p class="text-red-500 my-2">{{ $message }}</p>
+                            @enderror
                             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
                                 <div class="sm:col-span-2">
@@ -78,7 +79,8 @@
                                     <label for="nationalId" class="block mb-2   text-black dark:text-white">National
                                         Id</label>
                                     <input type="number" name="nationalId" id="nationalId"
-                                        class="bg-gray-50 border border-gray-300 noscroll text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        class="bg-gray-50 border border-gray-300 noscroll text-black
+                                        rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="eg. 370XXXXXXX" required>
 
                                     @error('nationalId')
@@ -102,7 +104,7 @@
                                         Number</label>
                                     <input type="number" name="phone" id="phone"
                                         class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="736587412">
+                                        placeholder="736587412" required autocomplete="off">
 
                                     @error('phone')
                                         <p class="text-red-500 my-2">{{ $message }}</p>
@@ -338,7 +340,6 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $users->links() }}
             </div>
         </div>
     </div>

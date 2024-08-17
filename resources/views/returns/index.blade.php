@@ -1,13 +1,11 @@
 <x-app-layout>
     <div class="container px-6 py-8 mx-auto">
-        <h3 class="text-3xl font-medium text-gray-700">Our Library</h3>
-        @include('shared.success_message')
-        @include('shared.error_messages')
+        <h3 class="text-3xl font-medium text-gray-700">Return Books management module</h3>
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
                 <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
+                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-sm">
                         <div class="p-10 cursor-pointer  bg-indigo-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -33,14 +31,14 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
-                            <div class="text-gray-500"> Books</div>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $acquisitions->count() }}</h4>
+                            <div class="text-gray-500">Borroweers</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
+                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-sm">
                         <div class="p-10 cursor-pointer bg-orange-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 28" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -57,14 +55,14 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $acquisition->count() }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $acquisitions->count() }}</h4>
                             <div class="text-gray-500">Total Borrowed</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
+                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-sm">
                         <div class="p-10 cursor-pointer bg-pink-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 28" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -77,76 +75,27 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
-                            <div class="text-gray-500">Available Books</div>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ '#' }}</h4>
+                            <div class="text-gray-500">Returned Books</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mt-8">
-
-        </div>
-        <div class="my-8 flex flex-col md:flex-row items-start">
-            {{-- modal --}}
-            @include('books.includes.add_book_modal')
-
-            @include('books.includes.add_genre_modal')
+        <div class="my-8 flex flex-col md:flex-row items-start ">
+            <a href="{{ route('downloadpdf') }}"
+                class="bg-slate-800 text-slate-100 p-3 rounded-full transition-all duration-300 hover:bg-slate-300 hover:text-slate-800">Download
+                report</a>
         </div>
 
-        <!-- Refine by section -->
-        <div class="my-10">
-            {{-- <h2 class="text-3xl font-bold mb-4">Genres</h2> --}}
 
-            @if ($genre_count > 0)
-                <!-- Genre buttons --search by genres-->
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <a href="{{ route('books.index') }}"
-                        class="px-4 py-2 bg-slate-800 text-white rounded-full hover:bg-gray-300 hover:text-black">All</a>
-                    @foreach ($genres as $genre)
-                        <form action="{{ route('books.index') }}" method="post">
-                            @csrf
-                            @method('get')
-                            <input type="text" name="genre_search" value="{{ $genre->genre }}" hidden>
-                            <button type="submit"
-                                class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-gray-300 hover:text-black">
-                                {{ $genre->genre }}
-                            </button>
-                        </form>
-                    @endforeach
 
-                </div>
-            @else
-                <p class="my-4">No genres available.</p>
-            @endif
 
-        </div>
+        @include('shared.success_message')
 
-        <h2 class="text-3xl text-gray-700 my-10 font-bold">Recently Added Books</h2>
-        @if ($books->sum('copies_number') > 0)
-            {{-- search books from table --}}
-            <div class="relative mx-4 lg:mx-0">
-                <form action="{{ route('books.index') }}" method="post">
-                    @method('get')
-                    @csrf
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
-                            <path
-                                d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            </path>
-                        </svg>
-                    </span>
-
-                    <input
-                        class="w-32 pl-10 pr-4 my-3  border border-gray-200 form-input sm:w-64 focus:border-none border-transparent focus:border-transparent focus:ring-0"
-                        type="text" placeholder="Search Book" name="search_book">
-                    <button class=" bg-white ml-[-52px] py-2 px-4 mx-3 hover:bg-slate-300" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-            </div>
+        <h2 class="text-3xl text-gray-700 font-bold">Recently Borrowed Books</h2>
+        @if ($acquisitions->count() > 0)
             <div class="flex flex-col mt-8">
                 <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                     <div
@@ -156,112 +105,154 @@
                                 <tr>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        Title</th>
+                                        Borrower Name</th>
 
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                         Book code</th>
+
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        genre</th>
+                                        date Borrowed</th>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        date published</th>
+                                        Due date</th>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        Availability</th>
+                                        Date Returned</th>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        Number of Copies</th>
+                                        Overdue Days</th>
+
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Fees</th>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody class="bg-white">
-
-                                @foreach ($books as $book)
+                                @foreach ($acquisitions as $acquisition)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="flex items-center">
+                                            <div class="flex items-center justify-between">
                                                 <div class="flex-shrink-0 w-10 h-10">
                                                     <img class="w-10 h-10 rounded-full"
-                                                        src="{{ asset('images/' . $book->image) }}" alt="">
+                                                        src="{{ asset('images/' . $acquisition->book->image) }}"
+                                                        alt="">
                                                 </div>
+                                                <div class="text-sm leading-5 text-gray-500 ">
+                                                    <p class="font-bold text-sm">Name:
+                                                        {{ $acquisition->guest->name }}</p>
+                                                    <p class="font-bold text-sm">Book Name:
+                                                        {{ $acquisition->book->title }}
+                                                    </p>
 
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium leading-5 text-gray-900">
-                                                        Name: {{ $book->title }}
-                                                    </div>
-                                                    <div class="text-sm leading-5 text-gray-500">
-                                                        Author: {{ $book->author }}</div>
                                                 </div>
                                             </div>
                                         </td>
-
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
-                                    </div> --}}
-                                            <div class="text-sm leading-5 text-gray-500">{{ $book->book_code }}</div>
+                                            <div class="text-sm leading-5 text-gray-500">
+
+                                                {{ $acquisition->book->book_code }}
+                                            </div>
                                         </td>
                                         <td
                                             class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            {{ $book->genre }}</td>
-                                        <td
-                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800">{{ $book->date_published }}
+                                            <div class="text-sm leading-5 text-gray-500">
+                                                {{ $acquisition->issue_date }}
                                             </div>
                                         </td>
 
-
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            @if ($book->copies_number > 0)
-                                                <span
-                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Yes</span>
-                                            @else
-                                                <span
-                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">No</span>
-                                            @endif
-
-                                        </td>
-
-
                                         <td
                                             class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800">{{ $book->copies_number }}
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                {{ $acquisition->due_date }}
+                                            </div>
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                {{ $acquisition->return_date }}
+                                            </div>
+                                        </td>
+                                        @php
+                                            // Define the two dates
+                                            $return_date = new DateTime($acquisition->return_date);
+                                            $due_date = new DateTime($acquisition->due_date);
+
+                                            // Calculate the difference
+                                            $interval = $return_date->diff($due_date);
+
+                                            $overdue = (int) $interval->format('%a');
+                                        @endphp
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                @if ($return_date >= $due_date)
+                                                    @if ($overdue > 10)
+                                                        <p class="text-red-500 font-bold">{{ $overdue . ' day(s)' }}
+                                                        </p>
+                                                    @else
+                                                        <p class="text-yellow-600 font-bold">
+                                                            {{ $overdue . ' day(s)' }}
+                                                        </p>
+                                                    @endif
+                                                @else
+                                                    <p class="text-green-600 font-bold">{{ '0 day(s)' }}
+                                                    </p>
+                                                @endif
+
+                                            </div>
+                                        </td>
+
+                                        {{-- fees --}}
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                @if ($return_date >= $due_date)
+                                                    {{ $overdue * 10 }}
+                                                @else
+                                                    {{ 0 * 10 }}
+                                                @endif
                                             </div>
                                         </td>
                                         <td
                                             class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                            <a href="{{ route('books.edit', $book->id) }}"
-                                                class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
 
-                                            <form action="{{ secure_url(route('books.destroy', $book->id)) }}"
+                                            {{-- @include('returns.includes.update_return') --}}
+                                            <a href="{{ route('acquisition.edit', $acquisition->id) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mr-2">View
+                                                More</a>
+                                            <form action="{{ route('acquisition.destroy', $acquisition->id) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit"
-                                                    class="text-red-600 hover:text-red-900">delete</button>
+                                                <button type="submit" class="text-red-600 hover:text-red-900 mr-2">
+                                                    Delete</button>
                                             </form>
+                                            {{-- <form action="{}" method="post">
+                                            <button type="submit" class="text-red-600 hover:text-red-900">Print
+                                                The
+                                                Report</button>
+                                        </form>
+                                        <form action="{}" method="post">
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-900">Update</button>
+                                        </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
                 </div>
-                {{ $books->links() }}
+                {{ $acquisitions->links() }}
             </div>
         @else
-            <p class="my-4">No books available yet</p>
+            <p class="my-4 text-md">No books borrowed yet</p>
         @endif
-
     </div>
 </x-app-layout>
 
 
-<script>
-    function toggleModal() {
-        document.getElementById('modal').classList.toggle('hidden')
-    }
-</script>
+<script></script>

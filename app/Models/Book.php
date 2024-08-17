@@ -17,10 +17,16 @@ class Book extends Model
         "image",
         "book_code",
         "genre_id",
+        "copies_number",
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function acquisition()
+    {
+
+        return $this->hasMany('App\Acquisition');
     }
 }

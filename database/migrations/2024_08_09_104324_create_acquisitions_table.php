@@ -12,7 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('acquisitions', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // primary key
+            $table->string('email');
+            $table->string('phone');
+            $table->string('issue_date');
+            $table->string('due_date');
+            $table->string('return_date')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('guest_id')->constrained()->onDelete('cascade');
+            $table->foreignId('book_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

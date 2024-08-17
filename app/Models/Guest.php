@@ -17,4 +17,11 @@ class Guest extends Model
     {
         return $this->belongsTo(User::class);
     }
+    /**
+     * Define the relationship between Guest and Acquisition.
+     */
+    public function acquisitions()
+    {
+        return $this->hasMany(Acquisition::class, 'user_id');
+    }
 }
