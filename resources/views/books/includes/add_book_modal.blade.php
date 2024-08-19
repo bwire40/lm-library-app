@@ -27,7 +27,7 @@ items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="w-full">
                             <label for="title" class="block mb-2   text-black dark:text-white">Book
                                 Title</label>
-                            <input type="text" name="title" id="title"
+                            <input type="text" name="title" id="title" autocomplete="on"
                                 class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                             dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="eg. Faith" required>
@@ -52,7 +52,7 @@ items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <label for="genre"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Genre</label>
                             <select name="genre" id="genre"
-                                class="bg-slate-200 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                class="bg-slate-200 border border-gray-300 text-black rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option selected="">Select genre</option>
 
 
