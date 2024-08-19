@@ -21,7 +21,7 @@ class AcquisitionController extends Controller
         // Fetch all guests that are active
         $guests = Guest::where('status', '=', 'active')->get();
         // Initialize query for books
-        $booksQuery = Book::where('copies_number', '>', 0);
+        $booksQuery = Book::where('id', '>', 0);
 
         // Apply search filter
         if ($search = $request->input('search')) {
@@ -76,10 +76,10 @@ class AcquisitionController extends Controller
         ]);
 
         // Reduce the number of available copies in the Book model
-        $book = Book::where('id', $validatedData['book_id'])->first();
-        if ($book) {
-            $book->decrement('copies_number');
-        }
+        // $book = Book::where('id', $validatedData['book_id'])->first();
+        // if ($book) {
+        //     $book->decrement($book->count());
+        // }
 
         return redirect()->route('acquisition.index', compact('book'))->with('success', 'Book borrowed successfully!');
     }

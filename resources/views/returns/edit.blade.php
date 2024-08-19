@@ -11,13 +11,6 @@
                 @method('put')
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-
-                    <div class="sm:col-span-2">
-                        <img src="{{ asset('images/' . $acquisition->book->image) }}" alt=""
-                            class=" w-56 h-56 rounded-full bg-green-100 object-cover">
-                    </div>
-
-
                     <div class="sm:col-span-2">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
                             Borrower Name</label>
@@ -123,7 +116,7 @@
             </form>
 
 
-            <div class="bg-white shadow-md my-10 pb-10">
+            <div class="bg-white my-10 pb-10">
                 <h2 class="text-xl font-bold my-3">Delete User</h2>
                 <p> Once the user is deleted, all of its resources and data will be permanently deleted. Before
                     deleting your account, please download any data or information that you wish to retain.</p>

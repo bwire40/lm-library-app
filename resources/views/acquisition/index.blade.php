@@ -51,15 +51,13 @@
         <div>
             @if ($books->count() > 0)
                 @foreach ($books as $book)
-                    <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4 h-48">
+                    <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4 px-6">
                         <div class="flex items-start">
-                            <img src="{{ asset('images/' . $book->image) }}" alt="{{ $book->title }}"
-                                class=" w-40 h-40 object-cover rounded mr-4">
                             <div>
-                                <h3 class="text-xl font-semibold">{{ $book->title }}</h3>
-                                <p class="text-gray-600">By: {{ $book->author }}</p>
-                                <p class="text-blue-600 text-sm italic">genre: {{ $book->genre }}</p>
-                                <p class="text-gray-600">Published: {{ $book->date_published }}</p>
+                                <h3 class="text-xl font-semibold">Book: {{ $book->title }}</h3>
+                                <p class="text-gray-600"><span class="font-bold">By:</span> {{ $book->author }}</p>
+                                <p class="text-blue-600 text-md italic">genre: {{ $book->genre }}</p>
+
                             </div>
                         </div>
 
