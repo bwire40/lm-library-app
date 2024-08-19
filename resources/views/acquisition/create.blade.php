@@ -1,5 +1,5 @@
 <div class="max-w-3xl mx-auto my-5 px-4">
-    <h1 class="text-3xl font-bold mb-4">Borrow this book</h1>
+    <h1 class="text-3xl font-bold mb-4"></h1>
 
     <form class="borrow-form" action="{{ route('acquisition.store') }}" method="POST">
         @csrf
@@ -8,19 +8,18 @@
         <div class="flex flex-col justify-between md:flex-row sm:flex-col items-center mb-6">
             <div>
                 <h2 class="text-2xl font-semibold mb-2">{{ $book->title }}</h2>
-                <h2 class="text-2xl font-semibold mb-2">{{ $book->genre }}</h2>
+                <h2 class="text-md text-blue-600 font-semibold mb-2">{{ $book->genre }}</h2>
                 <p class="text-gray-600 mb-4">{{ $book->author }}</p>
             </div>
-            <img src="{{ asset('images/' . $book->image) }}" alt=""
-                class="w-48 h-32 object-cover rounded-lg shadow-lg">
+
         </div>
 
         <input type="hidden" name="book_id" value="{{ $book->id }}">
 
         <div class="mb-4">
             <h3 class="text-xl font-semibold mb-4">Issue date</h3>
-            <input name="issue_date" class="flex-1 p-3 rounded-lg border border-gray-300"
-                placeholder="Select a date" type="date" />
+            <input name="issue_date" class="flex-1 p-3 rounded-lg border border-gray-300" placeholder="Select a date"
+                type="date" />
             @error('issue_date')
                 <p class="text-red-500 my-2">{{ $message }}</p>
             @enderror
@@ -42,17 +41,17 @@
                 @endif
             </select>
             <!-- Email address -->
-            <input id="user-email" name="email" class="user-email w-full p-3 mb-4 rounded-lg border border-gray-300" type="email" placeholder="Email address"
-                readonly>
+            <input id="user-email" name="email" class="user-email w-full p-3 mb-4 rounded-lg border border-gray-300"
+                type="email" placeholder="Email address" readonly>
             <!-- Phone number -->
-            <input id="user-number" name="phone" class="user-number w-full p-3 mb-4 rounded-lg border border-gray-300" type="text" placeholder="Phone number"
-                readonly>
+            <input id="user-number" name="phone" class="user-number w-full p-3 mb-4 rounded-lg border border-gray-300"
+                type="text" placeholder="Phone number" readonly>
         </div>
 
         <div class="mb-4">
             <h3 class="text-xl font-semibold mb-4">Due date</h3>
-            <input name="due_date" class="flex-1 p-3 rounded-lg border border-gray-300"
-                placeholder="Select a date" type="date" />
+            <input name="due_date" class="flex-1 p-3 rounded-lg border border-gray-300" placeholder="Select a date"
+                type="date" />
             @error('due_date')
                 <p class="text-red-500 my-2">{{ $message }}</p>
             @enderror
@@ -66,22 +65,21 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    // Select all forms
-    const forms = document.querySelectorAll('.borrow-form');
+        // Select all forms
+        const forms = document.querySelectorAll('.borrow-form');
 
-    forms.forEach(form => {
-        const userDropdown = form.querySelector('.user-dropdown');
-        const emailInput = form.querySelector('.user-email');
-        const numberInput = form.querySelector('.user-number');
+        forms.forEach(form => {
+            const userDropdown = form.querySelector('.user-dropdown');
+            const emailInput = form.querySelector('.user-email');
+            const numberInput = form.querySelector('.user-number');
 
-        userDropdown.addEventListener('change', function() {
-            const selectedOption = userDropdown.options[userDropdown.selectedIndex];
-            const email = selectedOption.getAttribute('data-email');
-            const number = selectedOption.getAttribute('data-number');
-            emailInput.value = email;
-            numberInput.value = number;
+            userDropdown.addEventListener('change', function() {
+                const selectedOption = userDropdown.options[userDropdown.selectedIndex];
+                const email = selectedOption.getAttribute('data-email');
+                const number = selectedOption.getAttribute('data-number');
+                emailInput.value = email;
+                numberInput.value = number;
+            });
         });
     });
-});
-
 </script>
