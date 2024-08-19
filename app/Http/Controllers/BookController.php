@@ -17,7 +17,7 @@ class BookController extends Controller
 
         $acquisition = Acquisition::orderBy("created_at", "desc")->paginate(5);
         // perform a books genre search
-        $books = Book::orderBy("created_at", "desc");
+        $books = Book::orderBy("created_at", "asc");
         // chck if there is search
         if (request()->has('genre_search')) {
             $books = $books->where('genre', 'like', '%' . request()->get('genre_search', '') . '%');
@@ -56,7 +56,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Book $book)
     {
         //
         $validated = $request->validate([
@@ -64,20 +64,14 @@ class BookController extends Controller
             "book_code" => "required|min:3",
             "genre" => "required",
             "author" => "required|min:3",
-            "image" => "required|image|mimes:png,jpg,jpeg,git|max:2048",
-            "date_published" => "required",
-            "description" => "required|min:3|max:1000",
-            "copies_number" => "required",
-        ]);
 
-        // image
-        $imageName = time() . "." . $request->image->extension();
-        $request->image->move(public_path("images"), $imageName);
+
+        ]);
 
         $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
 
         // check if book exists
-        if (Book::where("book_code", "=", $validated["book_code"])->exists()) {
+        if (Book::where("id", "=", $validated["book_code"])->exists() && Book::where("title", "=", $validated["title"])->exists()) {
             return redirect()->back()->with('success', 'Book is already in the system');
         }
         // create the book
@@ -86,11 +80,8 @@ class BookController extends Controller
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => $validated["author"],
-            "date_published" => $validated["date_published"],
-            "description" => $validated["description"],
-            "image" => $imageName,
             "genre_id" => $genre_id,
-            "copies_number" => $validated["copies_number"],
+
 
         ]);
         return redirect()->route("books.index")->with("success", "Book created Successfully!");
@@ -130,9 +121,7 @@ class BookController extends Controller
             "book_code" => "required|min:3",
             "genre" => "required",
             "author" => "required|min:3",
-            "date_published" => "required",
-            "description" => "required|min:3|max:1000",
-            "copies_number" => "required",
+
         ]);
 
 
@@ -143,10 +132,7 @@ class BookController extends Controller
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => $validated["author"],
-            "date_published" => $validated["date_published"],
-            "description" => $validated["description"],
             "genre_id" => $genre_id,
-            "copies_number" => $validated["copies_number"],
 
         ]);
         return redirect()->route("books.edit", $book)->with("success", "Book Updated Successfully!");
