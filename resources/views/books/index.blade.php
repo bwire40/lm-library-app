@@ -1,14 +1,13 @@
 <x-app-layout>
     <div class="container px-6 py-8 mx-auto">
         <h3 class="text-3xl font-medium text-gray-700">Our Library</h3>
-        @include('shared.success_message')
-        @include('shared.error_messages')
+
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
                 <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
-                        <div class="p-10 cursor-pointer  bg-indigo-600 bg-opacity-75 rounded-full">
+                    <div class="flex items-center px-5 py-5 bg-white rounded-md shadow-md">
+                        <div class="p-3 cursor-pointer  bg-indigo-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -33,15 +32,15 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->count() }}</h4>
                             <div class="text-gray-500"> Books</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
-                        <div class="p-10 cursor-pointer bg-orange-600 bg-opacity-75 rounded-full">
+                    <div class="flex items-center px-5 py-5 bg-white rounded-md shadow-md">
+                        <div class="p-3 cursor-pointer bg-orange-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 28" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -64,8 +63,8 @@
                 </div>
 
                 <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/3 xl:mt-0">
-                    <div class="flex items-center px-5 py-10 bg-white rounded-md shadow-md">
-                        <div class="p-10 cursor-pointer bg-pink-600 bg-opacity-75 rounded-full">
+                    <div class="flex items-center px-5 py-5 bg-white rounded-md shadow-md">
+                        <div class="p-3 cursor-pointer bg-pink-600 bg-opacity-75 rounded-full">
                             <svg class="w-8 h-8 text-white" viewBox="0 0 28 28" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z" fill="currentColor"
@@ -122,9 +121,10 @@
             @endif
 
         </div>
-
+        @include('shared.success_message')
+        @include('shared.error_messages')
         <h2 class="text-3xl text-gray-700 my-10 font-bold">Recently Added Books</h2>
-        @if ($books->sum('copies_number') > 0)
+        @if ($books->count() > 0)
             {{-- search books from table --}}
             <div class="relative mx-4 lg:mx-0">
                 <form action="{{ route('books.index') }}" method="post">
@@ -156,6 +156,9 @@
                                 <tr>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        ID</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                         Title</th>
 
                                     <th
@@ -164,15 +167,11 @@
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                         genre</th>
+
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        date published</th>
-                                    <th
-                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        Availability</th>
-                                    <th
-                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        Number of Copies</th>
+                                        Author</th>
+
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
                                 </tr>
                             </thead>
@@ -182,20 +181,10 @@
                                 @foreach ($books as $book)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="flex items-center">
-                                                <div class="flex-shrink-0 w-10 h-10">
-                                                    <img class="w-10 h-10 rounded-full"
-                                                        src="{{ asset('images/' . $book->image) }}" alt="">
-                                                </div>
-
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium leading-5 text-gray-900">
-                                                        Name: {{ $book->title }}
-                                                    </div>
-                                                    <div class="text-sm leading-5 text-gray-500">
-                                                        Author: {{ $book->author }}</div>
-                                                </div>
-                                            </div>
+                                            {{ $book->id }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b font-bold border-gray-200">
+                                            {{ $book->title }}
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -208,28 +197,14 @@
                                             {{ $book->genre }}</td>
                                         <td
                                             class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800">{{ $book->date_published }}
+                                            <div class="text-sm leading-5 text-gray-800">{{ $book->author }}
                                             </div>
                                         </td>
 
 
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            @if ($book->copies_number > 0)
-                                                <span
-                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Yes</span>
-                                            @else
-                                                <span
-                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">No</span>
-                                            @endif
-
-                                        </td>
 
 
-                                        <td
-                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800">{{ $book->copies_number }}
-                                            </div>
-                                        </td>
+
                                         <td
                                             class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
                                             <a href="{{ route('books.edit', $book->id) }}"

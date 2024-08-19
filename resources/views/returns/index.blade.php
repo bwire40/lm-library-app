@@ -137,9 +137,7 @@
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             <div class="flex items-center justify-between">
                                                 <div class="flex-shrink-0 w-10 h-10">
-                                                    <img class="w-10 h-10 rounded-full"
-                                                        src="{{ asset('images/' . $acquisition->book->image) }}"
-                                                        alt="">
+                                                    {{ $acquisition->id }}
                                                 </div>
                                                 <div class="text-sm leading-5 text-gray-500 ">
                                                     <p class="font-bold text-sm">Name:

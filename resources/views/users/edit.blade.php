@@ -11,20 +11,9 @@
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
-                    <div class="sm:col-span-2">
-                        <img src="{{ asset('images/' . $guest->image) }}" alt=""
-                            class=" w-56 h-56 rounded-full bg-green-100 object-cover">
-                    </div>
 
-                    <div class="w-full">
-                        <label for="image"
-                            class="block mb-2 text-normal font-medium text-gray-900 dark:text-white">Update
-                            Image</label>
-                        <input type="file" name="image" id="image" value="{{ $guest->image }}">
-                        @error('image')
-                            <p class="text-red-500 my-2">{{ $message }}</p>
-                        @enderror
-                    </div>
+
+
                     <div class="sm:col-span-2">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full
                             Name</label>
