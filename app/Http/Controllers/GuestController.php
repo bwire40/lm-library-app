@@ -10,10 +10,11 @@ class GuestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Guest $guest)
     {
         //
         $guests = Guest::orderBy("created_at", "desc")->paginate(5);
+
         return view("users.index", compact("guests"));
     }
 
@@ -34,7 +35,7 @@ class GuestController extends Controller
 
         //validate form input
         $validated = $request->validate([
-            "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
+
             "name" => 'required|min:3|max:30',
             "email" => "required|email",
             "phone" => "required",
@@ -43,8 +44,6 @@ class GuestController extends Controller
         ]);
 
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
 
         if (Guest::where('email', '=', $validated["email"])->exists()) {
             // dump($user);
@@ -62,7 +61,7 @@ class GuestController extends Controller
                 "phone" => $validated["phone"],
                 "address" => $validated["address"],
                 "nationalId" => $validated["nationalId"],
-                "image" => $imageName,
+
             ]);
         }
 
@@ -95,7 +94,7 @@ class GuestController extends Controller
     {
         //validate form input
         $validated = $request->validate([
-            "image" => "required|image|mimes:png,jpg,jpeg,gif|max:2048",
+
             "name" => 'required|min:3|max:30',
             "email" => "required|email",
             "phone" => "required",
@@ -105,12 +104,9 @@ class GuestController extends Controller
         ]);
 
 
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
-
 
         $guest->update([
-            "image" => $imageName,
+
             "name" => $validated["name"],
             "email" => $validated["email"],
             "phone" => $validated["phone"],

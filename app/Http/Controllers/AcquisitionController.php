@@ -21,7 +21,7 @@ class AcquisitionController extends Controller
         // Fetch all guests that are active
         $guests = Guest::where('status', '=', 'active')->get();
         // Initialize query for books
-        $booksQuery = Book::where('copies_number', '>', 0);
+        $booksQuery = Book::where('id', '>', 0);
 
         // Apply search filter
         if ($search = $request->input('search')) {
@@ -36,19 +36,6 @@ class AcquisitionController extends Controller
 
         // Get the filtered books
         $books = $booksQuery->paginate(5);
-
-        // If no genres exist, set $genres to null
-        if ($genres->isEmpty()) {
-            $genres = null;
-        }
-        // If no books exist, set $books to null
-        if ($books->isEmpty()) {
-            $books = null;
-        }
-        // If no books exist, set $books to null
-        if ($guests->isEmpty()) {
-            $guests = null;
-        }
 
         return view('acquisition.index', [
             'genres' => $genres,
@@ -89,10 +76,10 @@ class AcquisitionController extends Controller
         ]);
 
         // Reduce the number of available copies in the Book model
-        $book = Book::where('id', $validatedData['book_id'])->first();
-        if ($book) {
-            $book->decrement('copies_number');
-        }
+        // $book = Book::where('id', $validatedData['book_id'])->first();
+        // if ($book) {
+        //     $book->decrement($book->count());
+        // }
 
         return redirect()->route('acquisition.index', compact('book'))->with('success', 'Book borrowed successfully!');
     }
@@ -113,6 +100,7 @@ class AcquisitionController extends Controller
     public function edit(Acquisition $acquisition)
     {
         //
+        return view('returns.edit', compact("acquisition"));
     }
 
     /**
@@ -121,6 +109,12 @@ class AcquisitionController extends Controller
     public function update(Request $request, Acquisition $acquisition)
     {
         //
+        $validated = $request->validate([
+            'return_date' => 'required|date',
+        ]);
+        $acquisition->update(["return_date" => $validated["return_date"]]);
+
+        return redirect()->route("return.index")->with("success", "Successfully updated return!");
     }
 
     /**

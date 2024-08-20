@@ -50,6 +50,9 @@ Route::resource('/genre', GenreController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified', Admin::class]);
 
+// download route
+Route::get('/downloadpdf', [ReturnBookController::class, 'generatePDF'])->name('downloadpdf');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
