@@ -73,7 +73,9 @@ class BookController extends Controller
         $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
 
         // check if book exists
-        if (Book::where("id", "=", $book->id)->exists() && Book::where("title", "=", $validated["title"])->exists()) {
+        if (Book::where("title", "=", $validated["title"])->where("book_code", "=", $validated["book_code"])->exists()) {
+            // check if book code exists where title is similar to one given
+
             return redirect()->back()->with('success', 'Book is already in the system');
         }
         // create the book
