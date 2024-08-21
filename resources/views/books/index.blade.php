@@ -94,7 +94,7 @@
             @include('books.includes.add_genre_modal')
         </div>
 
-        <!-- Refine by section -->
+        <!-- serach section -->
         <div class="my-10">
             {{-- <h2 class="text-3xl font-bold mb-4">Genres</h2> --}}
 
@@ -121,6 +121,7 @@
             @endif
 
         </div>
+        {{-- end search section --}}
         @include('shared.success_message')
         @include('shared.error_messages')
         <h2 class="text-3xl text-gray-700 my-3 font-bold">Recently Added Books</h2>
@@ -151,6 +152,7 @@
                 <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                     <div
                         class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+
                         <table class="min-w-full">
                             <thead>
                                 <tr>

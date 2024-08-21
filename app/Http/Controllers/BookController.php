@@ -12,7 +12,7 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Book $book)
+    public function index(Book $book, Request $request)
     {
 
         $acquisition = Acquisition::orderBy("created_at", "desc")->paginate(20);
@@ -34,6 +34,7 @@ class BookController extends Controller
 
         $count = Book::count();
         $genre_count = Genre::count();
+
 
         return view("books.index", [
             "book" => $book,
@@ -102,7 +103,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
-        $genres = Genre::orderBy("genre", "desc");
+        $genres = Genre::orderBy("genre", "asc")->get();
         $count = $book->count();
         return view("books.edit", [
             "book" => $book,
