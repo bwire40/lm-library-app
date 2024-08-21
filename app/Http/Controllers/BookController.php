@@ -12,12 +12,12 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Book $book)
+    public function index(Book $book, Request $request)
     {
 
-        $acquisition = Acquisition::orderBy("created_at", "desc")->paginate(5);
+        $acquisition = Acquisition::orderBy("created_at", "desc")->paginate(20);
         // perform a books genre search
-        $books = Book::orderBy("created_at", "asc");
+        $books = Book::orderBy("created_at", "desc");
         // chck if there is search
         if (request()->has('genre_search')) {
             $books = $books->where('genre', 'like', '%' . request()->get('genre_search', '') . '%');
@@ -30,14 +30,16 @@ class BookController extends Controller
         }
 
 
-        $genres = Genre::all();
+        $genres = Genre::orderBy("genre", "asc")->get();
 
         $count = Book::count();
         $genre_count = Genre::count();
 
+
         return view("books.index", [
+            "book" => $book,
             "genres" => $genres,
-            "books" => $books->paginate(5),
+            "books" => $books->paginate(10),
             "count" => $count,
             "genre_count" => $genre_count,
             "acquisition" => $acquisition
@@ -71,15 +73,15 @@ class BookController extends Controller
         $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
 
         // check if book exists
-        if (Book::where("id", "=", $validated["book_code"])->exists() && Book::where("title", "=", $validated["title"])->exists()) {
+        if (Book::where("id", "=", $book->id)->exists() && Book::where("title", "=", $validated["title"])->exists()) {
             return redirect()->back()->with('success', 'Book is already in the system');
         }
         // create the book
         $request->user()->book()->create([
-            "title" => $validated["title"],
+            "title" => strtoupper($validated["title"]),
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
-            "author" => $validated["author"],
+            "author" => strtoupper($validated["author"]),
             "genre_id" => $genre_id,
 
 
@@ -101,7 +103,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
-        $genres = Genre::all();
+        $genres = Genre::orderBy("genre", "asc")->get();
         $count = $book->count();
         return view("books.edit", [
             "book" => $book,
@@ -128,10 +130,10 @@ class BookController extends Controller
         $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
         // create the book
         $book->update([
-            "title" => $validated["title"],
+            "title" => strtoupper($validated["title"]),
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
-            "author" => $validated["author"],
+            "author" => strtoupper($validated["author"]),
             "genre_id" => $genre_id,
 
         ]);

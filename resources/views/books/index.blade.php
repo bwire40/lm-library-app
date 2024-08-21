@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->count() }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $book->count() }}</h4>
                             <div class="text-gray-500"> Books</div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
             @include('books.includes.add_genre_modal')
         </div>
 
-        <!-- Refine by section -->
+        <!-- serach section -->
         <div class="my-10">
             {{-- <h2 class="text-3xl font-bold mb-4">Genres</h2> --}}
 
@@ -121,9 +121,10 @@
             @endif
 
         </div>
+        {{-- end search section --}}
         @include('shared.success_message')
         @include('shared.error_messages')
-        <h2 class="text-3xl text-gray-700 my-10 font-bold">Recently Added Books</h2>
+        <h2 class="text-3xl text-gray-700 my-3 font-bold">Recently Added Books</h2>
         @if ($books->count() > 0)
             {{-- search books from table --}}
             <div class="relative mx-4 lg:mx-0">
@@ -151,12 +152,11 @@
                 <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                     <div
                         class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+
                         <table class="min-w-full">
                             <thead>
                                 <tr>
-                                    <th
-                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        ID</th>
+
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                         Title</th>
@@ -180,9 +180,7 @@
 
                                 @foreach ($books as $book)
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            {{ $book->id }}
-                                        </td>
+
                                         <td class="px-6 py-4 whitespace-no-wrap border-b font-bold border-gray-200">
                                             {{ $book->title }}
                                         </td>
