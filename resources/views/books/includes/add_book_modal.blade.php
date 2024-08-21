@@ -25,13 +25,10 @@ items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
                         <div class="w-full">
-                            <label for="title" class="block mb-2   text-black dark:text-white">Book
-                                Title</label>
-                            <input type="text" name="title" id="title" autocomplete="on" autofocus
-                                aria-autocomplete="on"
-                                class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-                            dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="eg. Faith" required>
+                            <label for="title" class="block mb-2   text-black dark:text-white">Book Title</label>
+                            <input type="text" name="title" id="title"
+                                class="bg-gray-50 border border-gray-300 text-black  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="eg. Faith is Key" required>
 
                             @error('title')
                                 <p class="text-red-500 my-2">{{ $message }}</p>
