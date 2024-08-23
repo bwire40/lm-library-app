@@ -33,8 +33,12 @@ class GenreController extends Controller
             "genre" => "required|min:3",
         ]);
 
+        if (Genre::where("genre", "=", $validated["genre"])->exists()) {
+            return redirect()->back()->with('success', 'Genre is already in the system');
+        }
+
         // create
-        $request->user()->genre()->create($validated);
+        $request->user()->genre()->create(["genre" => $validated["genre"]]);
         return redirect()->route("books.index")->with("success", "Genre Created successfully!");
     }
 
