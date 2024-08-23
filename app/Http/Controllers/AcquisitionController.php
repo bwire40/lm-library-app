@@ -66,7 +66,7 @@ class AcquisitionController extends Controller
         ]);
 
         // Create a new acquisition record
-        $request->user()->acquisition()->create([
+        Acquisition::create([
             'guest_id' => $validatedData['guest_id'],
             'book_id' => $validatedData['book_id'],
             'email' => $validatedData['email'],
@@ -81,6 +81,7 @@ class AcquisitionController extends Controller
         //     $book->decrement($book->count());
         // }
 
+        // dump($validatedData);
         return redirect()->route('acquisition.index', compact('book'))->with('success', 'Book borrowed successfully!');
     }
 

@@ -181,7 +181,8 @@
                                 @foreach ($books as $book)
                                     <tr>
 
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b font-bold border-gray-200">
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold border-gray-200">
                                             {{ $book->title }}
                                         </td>
 

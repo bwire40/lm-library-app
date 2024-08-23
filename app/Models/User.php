@@ -48,15 +48,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Guest::class);
     }
-
-    public function genre()
-    {
-        return $this->hasMany(Genre::class);
-    }
-    public function book()
-    {
-        return $this->hasMany(Book::class);
-    }
     public function acquisition()
     {
         return $this->hasMany(Acquisition::class);
