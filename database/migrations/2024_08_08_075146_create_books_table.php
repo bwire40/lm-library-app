@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('genre');
             $table->string('author');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('genre_id')->constrained();
 
             $table->timestamps();
         });

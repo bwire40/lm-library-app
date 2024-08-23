@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('issue_date');
             $table->string('due_date');
             $table->string('return_date')->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('guest_id')->constrained()->onDelete('cascade');
-            $table->foreignId('book_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('guest_id')->constrained();
+            $table->foreignId('book_id')->constrained();
             $table->timestamps();
         });
     }
