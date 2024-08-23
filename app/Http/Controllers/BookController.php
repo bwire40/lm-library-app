@@ -39,7 +39,7 @@ class BookController extends Controller
         return view("books.index", [
             "book" => $book,
             "genres" => $genres,
-            "books" => $books->paginate(10),
+            "books" => $books->paginate(20),
             "count" => $count,
             "genre_count" => $genre_count,
             "acquisition" => $acquisition
