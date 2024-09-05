@@ -134,21 +134,26 @@ class BookController extends Controller
             "edition" => "required|min:3",
             "year_of_publishing" => "required",
             "publisher" => "required|min:3",
+            "image" => "required|image|mimes:png,jpg,jpeg,git|max:2048",
 
         ]);
 
 
-        $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
+        // image
+        $imageName = time() . "." . $request->image->extension();
+        $request->image->move(public_path("images"), $imageName);
+
+
         // update the book
         $book->update([
             "title" => strtoupper($validated["title"]),
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => strtoupper($validated["author"]),
-            "genre_id" => $genre_id,
             "isbn" => $validated['isbn'],
             'publisher' => $validated['publisher'],
             'edition' => $validated['edition'],
+            'image' => $imageName,
             'year_of_publishing' => $validated['year_of_publishing'],
 
         ]);
