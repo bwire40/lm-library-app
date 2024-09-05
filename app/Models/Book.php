@@ -14,14 +14,14 @@ class Book extends Model
         "author",
         "image",
         "book_code",
-        "genre_id",
+        "isbn",
+        "edition",
+        "publisher",
+        "year_of_publishing",
+        "image"
 
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
     public function acquisition()
     {
 

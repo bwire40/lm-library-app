@@ -24,10 +24,6 @@ class Acquisition extends Model
     /**
      * The user who borrowed the book.
      */
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
     public function guest()
     {
         return $this->belongsTo(Guest::class, 'guest_id');
@@ -40,5 +36,4 @@ class Acquisition extends Model
     {
         return $this->belongsTo(Book::class);
     }
-
 }

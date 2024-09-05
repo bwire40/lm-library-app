@@ -75,7 +75,7 @@
                                 @include('acquisition.create')
                             </x-acquisition-modal>
                             <a href="{{ route('books.edit', $book->id) }}"
-                                class=" px-4 py-2 bg-blue-800 text-white rounded-full transition-all duration-300 hover:bg-blue-700 acquisition-borrow-button">Update
+                                class=" px-4 py-2 bg-yellow-400 text-black font-bold rounded-full transition-all duration-300 hover:bg-yellow-500 acquisition-borrow-button">Update
                                 book</a>
                         </div>
 

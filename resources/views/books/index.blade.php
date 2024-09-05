@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $books->sum('copies_number') }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $book->count() }}</h4>
                             <div class="text-gray-500">Available Books</div>
                         </div>
                     </div>
@@ -181,7 +181,8 @@
                                 @foreach ($books as $book)
                                     <tr>
 
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b font-bold border-gray-200">
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold border-gray-200">
                                             {{ $book->title }}
                                         </td>
 
