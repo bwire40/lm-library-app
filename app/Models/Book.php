@@ -14,7 +14,6 @@ class Book extends Model
         "author",
         "image",
         "book_code",
-        "genre_id",
 
     ];
 

@@ -38,7 +38,7 @@ class GenreController extends Controller
         }
 
         // create
-        $request->user()->genre()->create(["genre" => $validated["genre"]]);
+        Genre::create(["genre" => $validated["genre"]]);
         return redirect()->route("books.index")->with("success", "Genre Created successfully!");
     }
 

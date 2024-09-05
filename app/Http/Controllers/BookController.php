@@ -66,25 +66,20 @@ class BookController extends Controller
             "book_code" => "required|min:3",
             "genre" => "required",
             "author" => "required|min:3",
-
-
         ]);
 
-        $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
+        // $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
 
         // check if book exists
         if (Book::where("id", "=", $book->id)->exists() && Book::where("title", "=", $validated["title"])->exists()) {
             return redirect()->back()->with('success', 'Book is already in the system');
         }
         // create the book
-        $request->user()->book()->create([
+        Book::create([
             "title" => strtoupper($validated["title"]),
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => strtoupper($validated["author"]),
-            "genre_id" => $genre_id,
-
-
         ]);
         return redirect()->route("books.index")->with("success", "Book created Successfully!");
     }
