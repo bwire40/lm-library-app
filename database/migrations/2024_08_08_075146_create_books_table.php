@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('genre');
             $table->string('author');
+            $table->text('image')->nullable();
+            $table->string('isbn');
+            $table->unsignedInteger('year_of_publishing');
+            $table->string('publisher');
+            $table->string('edition');
             $table->timestamps();
         });
     }

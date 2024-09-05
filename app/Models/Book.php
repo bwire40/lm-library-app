@@ -14,6 +14,11 @@ class Book extends Model
         "author",
         "image",
         "book_code",
+        "isbn",
+        "edition",
+        "publisher",
+        "year_of_publishing",
+        "image"
 
     ];
 

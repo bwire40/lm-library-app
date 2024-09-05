@@ -66,9 +66,16 @@ class BookController extends Controller
             "book_code" => "required|min:3",
             "genre" => "required",
             "author" => "required|min:3",
+            "image" => "required|image|mimes:png,jpg,jpeg,git|max:2048",
+            "isbn" => "required|min:3",
+            "edition" => "required|min:3",
+            "year_of_publishing" => "required",
+            "publisher" => "required|min:3",
         ]);
 
-        // $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
+        // image
+        $imageName = time() . "." . $request->image->extension();
+        $request->image->move(public_path("images"), $imageName);
 
         // check if book exists
         if (Book::where("id", "=", $book->id)->exists() && Book::where("title", "=", $validated["title"])->exists()) {
@@ -80,6 +87,11 @@ class BookController extends Controller
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => strtoupper($validated["author"]),
+            "image" => $imageName,
+            "isbn" => $validated['isbn'],
+            'publisher' => $validated['publisher'],
+            'edition' => $validated['edition'],
+            'year_of_publishing' => $validated['year_of_publishing'],
         ]);
         return redirect()->route("books.index")->with("success", "Book created Successfully!");
     }
@@ -118,18 +130,26 @@ class BookController extends Controller
             "book_code" => "required|min:3",
             "genre" => "required",
             "author" => "required|min:3",
+            "isbn" => "required|min:3",
+            "edition" => "required|min:3",
+            "year_of_publishing" => "required",
+            "publisher" => "required|min:3",
 
         ]);
 
 
         $genre_id = Genre::where("genre", $validated["genre"])->first()->id;
-        // create the book
+        // update the book
         $book->update([
             "title" => strtoupper($validated["title"]),
             "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => strtoupper($validated["author"]),
             "genre_id" => $genre_id,
+            "isbn" => $validated['isbn'],
+            'publisher' => $validated['publisher'],
+            'edition' => $validated['edition'],
+            'year_of_publishing' => $validated['year_of_publishing'],
 
         ]);
         return redirect()->route("books.edit", $book)->with("success", "Book Updated Successfully!");
