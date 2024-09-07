@@ -17,8 +17,8 @@ class ReturnBookController extends Controller
 
     public function generatePDF(Acquisition $acquisition, Request $request, Book $book)
     {
-        $acquisitions = Acquisition::orderBy("created_at", "desc")->paginate(5);
-        $books = Book::orderBy("created_at", "desc");
+        $acquisitions = Acquisition::orderBy("created_at", "asc")->paginate(5);
+        $books = Book::orderBy("created_at", "asc");
         $guests = Guest::all();
         // Load a view to be converted into a PDF
         $pdf = PDF::loadView('returns.pdf', compact("acquisitions", "book", "guests", "books", "acquisition")); // 'pdf.example' is a Blade view file

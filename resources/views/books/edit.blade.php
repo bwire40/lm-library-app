@@ -49,7 +49,7 @@
                             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                                 class="text-center w-full px-5 py-4 rounded-[100px] bg-indigo-600 flex items-center justify-center font-semibold text-lg text-white shadow-sm transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400"
                                 type="button">
-                                Update Information
+                                Update
                             </button>
 
                             @include('books.includes.update')

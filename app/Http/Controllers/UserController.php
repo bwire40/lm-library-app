@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = Guest::orderBy("created_at", "desc")->paginate(5);
+        $users = Guest::orderBy("created_at", "asc")->paginate(5);
         return view("users.index", ["users" => $users]);
     }
 

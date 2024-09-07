@@ -13,7 +13,8 @@
 
 <body>
     {{-- <h1>{{ $book->title }}</h1> --}}
-    <p>This is a sample report file</p>
+    <h1>LMK Library System</h1>
+    <p>The following is the sample report file of the books borrowed and the borrowers</p>
 
     <h2 class="text-3xl text-gray-700 font-bold">Recently Borrowed Books</h2>
     @if ($acquisitions->count() > 0)

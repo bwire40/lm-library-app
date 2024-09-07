@@ -105,7 +105,7 @@
                                 <tr>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                        Borrower Name</th>
+                                        Book</th>
 
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
@@ -137,15 +137,18 @@
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             <div class="flex items-center justify-between">
                                                 <div class="flex-shrink-0 w-10 h-10">
-                                                    {{ $acquisition->id }}
+                                                    <img src="{{ asset('images/' . $acquisition->book->image) }}"
+                                                        alt="" class="w-10 h-10">
                                                 </div>
                                                 <div class="text-sm leading-5 text-gray-500 ">
                                                     <p class="font-bold text-sm">Name:
-                                                        {{ $acquisition->guest->name }}</p>
-                                                    <p class="font-bold text-sm">Book Name:
-                                                        {{ $acquisition->book->title }}
+                                                        <span class="text-sm text-blue-600 italic">
+                                                            {{ $acquisition->guest->name }}</span>
                                                     </p>
-
+                                                    <p class="font-bold text-sm">Book Name:
+                                                        <span class="text-sm text-blue-600 italic">
+                                                            {{ $acquisition->book->title }}</span>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </td>
@@ -171,6 +174,9 @@
                                         <td
                                             class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                             <div class="text-sm leading-5 text-gray-800">
+                                                @if ($acquisition->return_date == null)
+                                                    <p class="text-red-400 text-sm italic ">Not returned yet</p>
+                                                @endif
                                                 {{ $acquisition->return_date }}
                                             </div>
                                         </td>
@@ -206,11 +212,11 @@
                                         {{-- fees --}}
                                         <td
                                             class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800">
+                                            <div class="text-md font-bold leading-5 text-green-500">
                                                 @if ($return_date >= $due_date)
-                                                    {{ $overdue * 10 }}
+                                                    {{ $overdue * 10 }}/=
                                                 @else
-                                                    {{ 0 * 10 }}
+                                                    {{ 0 * 10 }}/=
                                                 @endif
                                             </div>
                                         </td>

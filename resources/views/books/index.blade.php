@@ -156,7 +156,9 @@
                         <table class="min-w-full">
                             <thead>
                                 <tr>
-
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Image</th>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                         Title</th>
@@ -180,10 +182,16 @@
 
                                 @foreach ($books as $book)
                                     <tr>
-
                                         <td
                                             class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold border-gray-200">
-                                            {{ $book->title }}
+                                            <img src=" {{ asset('images/' . $book->image) }}" alt=""
+                                                class="w-20 h-20">
+                                        </td>
+
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold text-sm border-gray-200">
+                                            <a href="{{ route('books.edit', $book->id) }}"
+                                                title="Click to Show">{{ $book->title }}</a>
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -192,10 +200,10 @@
                                             <div class="text-sm leading-5 text-gray-500">{{ $book->book_code }}</div>
                                         </td>
                                         <td
-                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            class="px-6 py-4 text-sm font-bold leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                             {{ $book->genre }}</td>
                                         <td
-                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            class="px-6 py-4 text-sm leading-5 font-bold text-gray-500 whitespace-no-wrap border-b border-gray-200">
                                             <div class="text-sm leading-5 text-gray-800">{{ $book->author }}
                                             </div>
                                         </td>

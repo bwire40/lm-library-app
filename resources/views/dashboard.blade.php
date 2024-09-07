@@ -87,7 +87,7 @@
 
         </div>
 
-        <h2 class="text-3xl text-gray-700">Recent Users</h2>
+        <h2 class="text-md text-gray-700">Recent Users</h2>
         <div class="flex flex-col mt-8">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                 <div
@@ -194,7 +194,168 @@
             {{ $users->links() }}
         </div>
 
-        <h2 class="text-3xl text-gray-700 my-5">Recent Books borrowed</h2>
+        <h2 class="text-md text-gray-700 my-5">Recent Books borrowed</h2>
+
+        @if ($acquisitions->count() > 0)
+            <div class="flex flex-col mt-8">
+                <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                    <div
+                        class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Book</th>
+
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Book code</th>
+
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        date Borrowed</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Due date</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Date Returned</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Overdue Days</th>
+
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Fees</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="bg-white">
+                                @foreach ($acquisitions as $acquisition)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="flex items-center justify-between">
+                                                <div class="flex-shrink-0 w-10 h-10">
+                                                    <img src="{{ asset('images/' . $acquisition->book->image) }}"
+                                                        alt="" class="w-10 h-10">
+                                                </div>
+                                                <div class="text-sm leading-5 text-gray-500 ">
+                                                    <p class="font-bold text-sm">Name:
+                                                        <span class="text-sm text-blue-600 italic">
+                                                            {{ $acquisition->guest->name }}</span>
+                                                    </p>
+                                                    <p class="font-bold text-sm">Book Name:
+                                                        <span class="text-sm text-blue-600 italic">
+                                                            {{ $acquisition->book->title }}</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-500">
+
+                                                {{ $acquisition->book->book_code }}
+                                            </div>
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-500">
+                                                {{ $acquisition->issue_date }}
+                                            </div>
+                                        </td>
+
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                {{ $acquisition->due_date }}
+                                            </div>
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                @if ($acquisition->return_date == null)
+                                                    <p class="text-red-400 text-sm italic ">Not returned yet</p>
+                                                @endif
+                                                {{ $acquisition->return_date }}
+                                            </div>
+                                        </td>
+                                        @php
+                                            // Define the two dates
+                                            $return_date = new DateTime($acquisition->return_date);
+                                            $due_date = new DateTime($acquisition->due_date);
+
+                                            // Calculate the difference
+                                            $interval = $return_date->diff($due_date);
+
+                                            $overdue = (int) $interval->format('%a');
+                                        @endphp
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                @if ($return_date >= $due_date)
+                                                    @if ($overdue > 10)
+                                                        <p class="text-red-500 font-bold">{{ $overdue . ' day(s)' }}
+                                                        </p>
+                                                    @else
+                                                        <p class="text-yellow-600 font-bold">
+                                                            {{ $overdue . ' day(s)' }}
+                                                        </p>
+                                                    @endif
+                                                @else
+                                                    <p class="text-green-600 font-bold">{{ '0 day(s)' }}
+                                                    </p>
+                                                @endif
+
+                                            </div>
+                                        </td>
+
+                                        {{-- fees --}}
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-md font-bold leading-5 text-green-500">
+                                                @if ($return_date >= $due_date)
+                                                    {{ $overdue * 10 }}/=
+                                                @else
+                                                    {{ 0 * 10 }}/=
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+
+                                            {{-- @include('returns.includes.update_return') --}}
+                                            <a href="{{ route('acquisition.edit', $acquisition->id) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mr-2">View
+                                                More</a>
+                                            <form action="{{ route('acquisition.destroy', $acquisition->id) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="text-red-600 hover:text-red-900 mr-2">
+                                                    Delete</button>
+                                            </form>
+                                            {{-- <form action="{}" method="post">
+                                            <button type="submit" class="text-red-600 hover:text-red-900">Print
+                                                The
+                                                Report</button>
+                                        </form>
+                                        <form action="{}" method="post">
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-900">Update</button>
+                                        </form> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{ $acquisitions->links() }}
+            </div>
+        @else
+            <p class="my-4 text-md">No books borrowed yet</p>
+        @endif
     </div>
 
 </x-app-layout>
