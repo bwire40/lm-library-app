@@ -32,13 +32,13 @@
                 <div class="flex flex-wrap gap-2">
                     @foreach ($genres as $genre)
                         <button type="submit" name="genre" value="{{ $genre->genre }}"
-                            class="px-4 py-2 {{ request('genre') === $genre->genre ? 'bg-gray-600 text-white' : 'bg-blue-600 text-white' }} rounded-full hover:bg-gray-600">
+                            class="px-2 py-1 text-[14px] {{ request('genre') === $genre->genre ? 'bg-gray-600 text-white' : 'bg-blue-600 text-white' }} rounded-full hover:bg-gray-600">
                             {{ $genre->genre }}
                         </button>
                     @endforeach
                     <!-- Clear Genre Filter Button -->
                     <button type="submit" name="genre" value=""
-                        class="px-4 py-2 {{ request('genre') === '' ? 'bg-gray-600 text-white' : 'bg-blue-800 text-white' }} rounded-full hover:bg-gray-600">
+                        class="px-2 py-1 text-[14px] {{ request('genre') === '' ? 'bg-gray-600 text-white' : 'bg-blue-800 text-white' }} rounded-full hover:bg-gray-600">
                         Clear Genre Filter
                     </button>
                 </div>

@@ -35,7 +35,7 @@ class AcquisitionController extends Controller
         }
 
         // Get the filtered books
-        $books = $booksQuery->paginate(5);
+        $books = $booksQuery->paginate(10);
 
         return view('acquisition.index', [
             'genres' => $genres,
