@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('issue_date');
             $table->string('due_date');
             $table->string('return_date')->nullable();
-            $table->foreignId('guest_id');
-            $table->foreignId('book_id');
+            $table->foreignId('guest_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
