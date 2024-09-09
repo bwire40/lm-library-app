@@ -5,11 +5,15 @@
         @csrf
         @method('post')
 
-        <div class="flex flex-col justify-between md:flex-row sm:flex-col items-center mb-6">
+        <div class="flex flex-col justify-around md:flex-row sm:flex-col items-center mb-6">
             <div>
                 <h2 class="text-2xl font-semibold mb-2">{{ $book->title }}</h2>
                 <h2 class="text-md text-blue-600 font-semibold mb-2">{{ $book->genre }}</h2>
                 <p class="text-gray-600 mb-4">{{ $book->author }}</p>
+            </div>
+
+            <div>
+                <img src="{{ asset('images/' . $book->image) }}" alt="" class=" w-60">
             </div>
 
         </div>
