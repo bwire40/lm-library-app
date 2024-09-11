@@ -99,9 +99,21 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="return_date"
-                            class="block mb-2 text-md font-medium text-green-600 dark:text-white">Fee charged</label>
-                        <p class="mx-4 font-bold">{{ $overdue * 10 }} /=</p>
+                        <label for="return_date" class="block mb-2 text-md font-medium text-red-600 dark:text-white">Fee
+                            charged</label>
+                        @if ($return_date >= $due_date)
+                            @if ($overdue > 10)
+                                <p class="text-red-500 font-bold">{{ $overdue * 10 }} /=
+                                </p>
+                            @else
+                                <p class="text-yellow-600 font-bold">
+                                    {{ 0 }}
+                                </p>
+                            @endif
+                        @else
+                            <p class="text-green-600 font-bold">{{ '0 /=' }}
+                            </p>
+                        @endif
                         @error('return_date')
                             <p class="text-red-500 my-2">{{ $message }}</p>
                         @enderror
