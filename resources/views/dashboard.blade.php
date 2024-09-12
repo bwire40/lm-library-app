@@ -175,8 +175,8 @@
                                             method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit"
-                                                class="text-red-600 hover:text-red-900">delete</button>
+                                            <button type="submit" class="text-red-600 hover:text-red-900"
+                                                onclick="return confirm('Are you sure you want to delete?')">delete</button>
                                         </form>
                                         {{-- <a href="{{ route('users.destroy', $user->id) }}"
                                             class="text-red-600 hover:text-red-900">delete</a> --}}
@@ -256,7 +256,7 @@
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             <div class="text-sm leading-5 text-gray-500">
 
-                                                {{ $acquisition->book->book_code }}
+                                                {{ $acquisition->book_code->book_code }}
                                             </div>
                                         </td>
                                         <td
@@ -332,18 +332,11 @@
                                                 method="post">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="text-red-600 hover:text-red-900 mr-2">
+                                                <button type="submit" class="text-red-600 hover:text-red-900 mr-2"
+                                                    onclick="return confirm('Are you sure you want to delete?')">
                                                     Delete</button>
                                             </form>
-                                            {{-- <form action="{}" method="post">
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Print
-                                                The
-                                                Report</button>
-                                        </form>
-                                        <form action="{}" method="post">
-                                            <button type="submit"
-                                                class="text-red-600 hover:text-red-900">Update</button>
-                                        </form> --}}
+
                                         </td>
                                     </tr>
                                 @endforeach

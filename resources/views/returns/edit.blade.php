@@ -37,7 +37,7 @@
                         <label for="book_code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Book
                             Code</label>
                         <input type="text" name="book_code" id="book_code" disabled
-                            value="{{ $acquisition->book->book_code }}"
+                            value="{{ $acquisition->book_code->book_code }}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="eg. 370XXXXXXX" required="">
                         @error('book_code')
@@ -136,7 +136,7 @@
                 <form action="{{ route('acquisition.destroy', $acquisition->id) }}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit"
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete?')"
                         class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center transition-all duration-300
                         text-white bg-red-500 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-red-700">
                         Delete User Information

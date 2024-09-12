@@ -30,7 +30,7 @@ class BookCodeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, BookCode $bookCode)
     {
         //
         // Validate the request data
@@ -40,7 +40,13 @@ class BookCodeController extends Controller
 
         ]);
 
-        BookCode::create($validatedData);
+        // check if book code exists
+        if (BookCode::where('book_code', '=', $validatedData["book_code"])->exists()) {
+            return redirect()->back()->with("error", "Book code is already in the system");
+        } else {
+            BookCode::create($validatedData);
+        }
+
 
 
         return redirect()->route('books.index')->with('success', 'Book Code added successfully!');

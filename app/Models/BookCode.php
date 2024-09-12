@@ -20,6 +20,6 @@ class BookCode extends Model
     }
     public function acquisition()
     {
-        return $this->belongsTo(Acquisition::class);
+        return $this->hasMany(Acquisition::class);
     }
 }

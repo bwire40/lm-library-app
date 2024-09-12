@@ -56,7 +56,7 @@ class AcquisitionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Book $book)
+    public function store(Request $request, Book $book, BookCode $bookCode)
     {
 
         // Validate the request data
@@ -65,22 +65,30 @@ class AcquisitionController extends Controller
             'phone' => 'required',
             'guest_id' => 'required',
             'book_id' => 'required',
-            'book_code' => 'required',
+            'book_code_id' => 'required',
             'issue_date' => 'required',
             'due_date' => 'required',
         ]);
 
-        // Create a new acquisition record
-        Acquisition::create([
-            'guest_id' => $validatedData['guest_id'],
-            'book_id' => $validatedData['book_id'],
-            'book_code' => $validatedData['book_code'],
-            'email' => $validatedData['email'],
-            'phone' => $validatedData['phone'],
-            'issue_date' => $validatedData['issue_date'],
-            'due_date' => $validatedData['due_date'],
-            'status' => "borrowed",
-        ]);
+
+        // check if book code exists in acquisition
+        if (Acquisition::where("book_code_id", "=", $validatedData["book_code_id"])->exists()) {
+
+            return redirect()->back()->with('error', 'Book is already borrowed!');
+        } else {
+
+
+            // Create a new acquisition record
+            Acquisition::create([
+                'guest_id' => $validatedData['guest_id'],
+                'book_id' => $validatedData['book_id'],
+                'book_code_id' => $validatedData['book_code_id'],
+                'email' => $validatedData['email'],
+                'phone' => $validatedData['phone'],
+                'issue_date' => $validatedData['issue_date'],
+                'due_date' => $validatedData['due_date'],
+            ]);
+        }
 
         // Reduce the number of available copies in the Book model
         // $book = Book::where('id', $validatedData['book_id'])->first();

@@ -82,8 +82,8 @@ class BookController extends Controller
         $request->image->move(public_path("images"), $imageName);
 
         // check if book exists
-        if (Book::where("id", "=", $book->id)->exists() && Book::where("title", "=", $validated["title"])->exists()) {
-            return redirect()->back()->with('success', 'Book is already in the system');
+        if (Book::where("title", "=", $validated["title"])->exists()) {
+            return redirect()->back()->with('error', 'Book is already in the system!');
         }
         // create the book
         Book::create([

@@ -19,8 +19,7 @@ class Acquisition extends Model
         'email',
         'phone',
         'return_date',
-        'book_code',
-        'status',
+        'book_code_id',
     ];
 
     /**
@@ -40,6 +39,6 @@ class Acquisition extends Model
     }
     public function book_code()
     {
-        return $this->hasMany(BookCode::class);
+        return $this->belongsTo(BookCode::class);
     }
 }

@@ -9,7 +9,7 @@
                 <div class="img p-2">
                     <div class="img-box h-full max-lg:mx-auto rounded-lg ">
                         <img src="{{ asset('images/' . $book->image) }}" alt="Yellow Tropical Printed Shirt image"
-                            class="max-lg:mx-auto lg:ml-auto h-full rounded-lg">
+                            class="max-lg:mx-auto lg:ml-auto h-[90%] rounded-lg">
                     </div>
                 </div>
                 <div
@@ -53,6 +53,17 @@
                             </button>
 
                             @include('books.includes.update')
+
+
+                            <form action="{{ route('books.destroy', $book->id) }}" method="post"
+                                class="flex justify-center items-center ">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" onclick="return confirm('Are you sure?')"
+                                    class="p-4 w-4/5
+                                bg-red-500 text-white  font-bold rounded-full
+                                hover:bg-red-700 transition-all duration-300 ">Delete</button>
+                            </form>
 
                         </div>
                     </div>

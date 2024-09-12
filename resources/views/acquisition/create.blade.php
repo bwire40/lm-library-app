@@ -19,7 +19,8 @@
         </div>
 
         <input type="hidden" name="book_id" value="{{ $book_code->book_id }}">
-        <input type="hidden" name="book_code" value="{{ $book_code->book_code }}">
+
+        <input type="hidden" name="book_code_id" value="{{ $book_code->id }}">
 
         <div class="mb-4">
             <h3 class="text-xl font-semibold mb-4">Issue date</h3>
