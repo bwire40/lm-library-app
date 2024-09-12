@@ -123,7 +123,10 @@
         {{-- end search section --}}
         @include('shared.success_message')
         @include('shared.error_messages')
-        <h2 class="text-3xl text-gray-700 my-3 font-bold">Recently Added Books</h2>
+
+
+
+        <h2 class="text-md text-gray-700 my-3 font-bold">Available Books Collections</h2>
         @if ($books->count() > 0)
             {{-- search books from table --}}
             <div class="relative mx-4 lg:mx-0">
@@ -164,6 +167,126 @@
 
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        ISBN</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        YEAR</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        genre</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        edition</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        pblisher</th>
+
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Author</th>
+
+                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50">Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="bg-white">
+
+                                @foreach ($books as $book)
+                                    <tr>
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold border-gray-200">
+                                            <img src=" {{ asset('images/' . $book->image) }}" alt=""
+                                                class="w-20 h-20">
+                                        </td>
+
+                                        <td
+                                            class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold text-sm border-gray-200">
+                                            <a href="{{ route('books.edit', $book->id) }}"
+                                                title="Click to Show">{{ $book->title }}</a>
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
+                                    </div> --}}
+                                            <div class="text-sm leading-5 text-gray-500">{{ $book->isbn }}
+                                            </div>
+
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
+                                    </div> --}}
+                                            <div class="text-sm leading-5 text-gray-500">
+                                                {{ $book->year_of_publishing }}
+                                            </div>
+
+                                        </td>
+
+                                        <td
+                                            class="px-6 py-4 text-sm font-bold leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            {{ $book->genre }}</td>
+                                        <td
+                                            class="px-6 py-4 text-sm font-bold leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            {{ $book->edition }}</td>
+                                        <td
+                                            class="px-6 py-4 text-sm font-bold leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            {{ $book->publisher }}</td>
+                                        <td
+                                            class="px-6 py-4 text-sm leading-5 font-bold text-gray-500 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                {{ $book->author }}
+                                            </div>
+                                        </td>
+
+
+
+
+
+                                        <td
+                                            class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
+                                            <a href="{{ route('books.edit', $book->id) }}"
+                                                class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
+
+                                            <form action="{{ secure_url(route('books.destroy', $book->id)) }}"
+                                                method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="text-red-600 hover:text-red-900">delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{ $books->links() }}
+            </div>
+        @else
+            <p class="my-4">No books available yet</p>
+        @endif
+
+        <h2 class="text-md text-gray-700 my-3 font-bold">Recently Added Books</h2>
+        @if ($books->count() > 0)
+
+            <div class="flex flex-col mt-8">
+                <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                    <div
+                        class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+
+                        <table class="min-w-full">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Image</th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                        Title</th>
+
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                         Book code</th>
                                     <th
                                         class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
@@ -183,8 +306,8 @@
                                     <tr>
                                         <td
                                             class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold border-gray-200">
-                                            <img src=" {{ asset('images/' . $book_code->book->image) }}" alt=""
-                                                class="w-20 h-20">
+                                            <img src=" {{ asset('images/' . $book_code->book->image) }}"
+                                                alt="" class="w-20 h-20">
                                         </td>
 
                                         <td
