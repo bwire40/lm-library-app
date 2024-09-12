@@ -62,6 +62,8 @@
                                 <p class="text-gray-600"><span class="font-bold">By:</span>
                                     {{ $book_code->book->author }}</p>
                                 <p class="text-blue-600 text-md italic">genre: {{ $book_code->book->genre }}</p>
+                                <p class="text-blue-600 text-md italic">Book Number: <span
+                                        class="text-black">{{ $book_code->book_code }}</span></p>
 
 
                             </div>

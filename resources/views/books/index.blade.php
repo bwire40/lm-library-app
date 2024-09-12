@@ -33,7 +33,7 @@
 
                         <div class="mx-5">
                             <h4 class="text-2xl font-semibold text-gray-700">{{ $book->count() }}</h4>
-                            <div class="text-gray-500"> Books</div>
+                            <div class="text-gray-500"> Books Collections</div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="mx-5">
-                            <h4 class="text-2xl font-semibold text-gray-700">{{ $book->count() }}</h4>
+                            <h4 class="text-2xl font-semibold text-gray-700">{{ $bookCode->count() }}</h4>
                             <div class="text-gray-500">Available Books</div>
                         </div>
                     </div>
@@ -201,8 +201,7 @@
                                             <a href="{{ route('books.edit', $book_code->book_id) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
 
-                                            <form
-                                                action="{{ secure_url(route('books.destroy', $book_code->book_id)) }}"
+                                            <form action="{{ secure_url(route('book-code.destroy', $book_code->id)) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('delete')

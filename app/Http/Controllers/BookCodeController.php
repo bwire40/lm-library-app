@@ -82,5 +82,7 @@ class BookCodeController extends Controller
     public function destroy(BookCode $bookCode)
     {
         //
+        $bookCode->delete();
+        return redirect()->route('books.index')->with('success', 'Book with that code deleted!');
     }
 }

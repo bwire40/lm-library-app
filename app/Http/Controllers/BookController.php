@@ -46,7 +46,8 @@ class BookController extends Controller
             "book_codes" => $book_codes,
             "count" => $count,
             "genre_count" => $genre_count,
-            "acquisition" => $acquisition
+            "acquisition" => $acquisition,
+            "bookCode" => $bookCode
 
         ]);
     }
