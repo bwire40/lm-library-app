@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             // title, genre author date_publishing isAvailable description user_id genre_id copies of the book
             $table->id();
-            $table->string('book_code');
+            // $table->string('book_code');
             $table->string('title');
             $table->string('genre');
             $table->string('author');

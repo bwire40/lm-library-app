@@ -7,18 +7,19 @@
 
         <div class="flex flex-col justify-around md:flex-row sm:flex-col items-center mb-6">
             <div>
-                <h2 class="text-2xl font-semibold mb-2">{{ $book->title }}</h2>
-                <h2 class="text-md text-blue-600 font-semibold mb-2">{{ $book->genre }}</h2>
-                <p class="text-gray-600 mb-4">{{ $book->author }}</p>
+                <h2 class="text-2xl font-semibold mb-2">{{ $book_code->book->title }}</h2>
+                <h2 class="text-md text-blue-600 font-semibold mb-2">{{ $book_code->book->genre }}</h2>
+                <p class="text-gray-600 mb-4">{{ $book_code->book->author }}</p>
             </div>
 
             <div>
-                <img src="{{ asset('images/' . $book->image) }}" alt="" class=" w-60">
+                <img src="{{ asset('images/' . $book_code->book->image) }}" alt="" class=" w-60">
             </div>
 
         </div>
 
-        <input type="hidden" name="book_id" value="{{ $book->id }}">
+        <input type="hidden" name="book_id" value="{{ $book_code->book_id }}">
+        <input type="hidden" name="book_code" value="{{ $book_code->book_code }}">
 
         <div class="mb-4">
             <h3 class="text-xl font-semibold mb-4">Issue date</h3>

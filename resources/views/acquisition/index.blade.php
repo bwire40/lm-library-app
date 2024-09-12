@@ -50,17 +50,19 @@
         <!-- Book Listing -->
         <div>
             @if ($books->count() > 0)
-                @foreach ($books as $book)
+                @foreach ($book_codes as $book_code)
                     <div class="sm:flex items-center justify-between bg-white p-4 rounded-lg shadow mb-4 px-6">
                         <div class="flex items-start">
                             <div>
-                                <img src="{{ asset('images/' . $book->image) }}" alt=""
+                                <img src="{{ asset('images/' . $book_code->book->image) }}" alt=""
                                     class=" w-48 h-full mb-3">
                                 <h3 class="text-xl font-semibold"><span
                                         class="italic text-blue-600 text-md">Book:</span>
-                                    {{ $book->title }}</h3>
-                                <p class="text-gray-600"><span class="font-bold">By:</span> {{ $book->author }}</p>
-                                <p class="text-blue-600 text-md italic">genre: {{ $book->genre }}</p>
+                                    {{ $book_code->book->title }}</h3>
+                                <p class="text-gray-600"><span class="font-bold">By:</span>
+                                    {{ $book_code->book->author }}</p>
+                                <p class="text-blue-600 text-md italic">genre: {{ $book_code->book->genre }}</p>
+
 
                             </div>
                         </div>
@@ -78,7 +80,7 @@
                                 <!-- Modal Content -->
                                 @include('acquisition.create')
                             </x-acquisition-modal>
-                            <a href="{{ route('books.edit', $book->id) }}" class="">
+                            <a href="{{ route('books.edit', $book_code->book_id) }}" class="">
                                 <button
                                     class="w-full px-4 py-2 bg-yellow-400 text-black font-bold rounded-full transition-all duration-300 hover:bg-yellow-500 acquisition-borrow-button">View</button></a>
                         </div>

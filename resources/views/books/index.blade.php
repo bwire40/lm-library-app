@@ -90,14 +90,13 @@
         <div class="my-8 flex flex-col md:flex-row items-start">
             {{-- modal --}}
             @include('books.includes.add_book_modal')
+            @include('book_code.index')
 
             @include('books.includes.add_genre_modal')
         </div>
 
         <!-- serach section -->
         <div class="my-10">
-            {{-- <h2 class="text-3xl font-bold mb-4">Genres</h2> --}}
-
             @if ($genre_count > 0)
                 <!-- Genre buttons --search by genres-->
                 <div class="flex flex-wrap gap-2 mb-4">
@@ -180,31 +179,33 @@
 
                             <tbody class="bg-white">
 
-                                @foreach ($books as $book)
+                                @foreach ($book_codes as $book_code)
                                     <tr>
                                         <td
                                             class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold border-gray-200">
-                                            <img src=" {{ asset('images/' . $book->image) }}" alt=""
+                                            <img src=" {{ asset('images/' . $book_code->book->image) }}" alt=""
                                                 class="w-20 h-20">
                                         </td>
 
                                         <td
                                             class="px-6 py-4 whitespace-no-wrap text-blue-700 border-b font-bold text-sm border-gray-200">
-                                            <a href="{{ route('books.edit', $book->id) }}"
-                                                title="Click to Show">{{ $book->title }}</a>
+                                            <a href="{{ route('books.edit', $book_code->book_id) }}"
+                                                title="Click to Show">{{ $book_code->book->title }}</a>
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             {{-- <div class="text-sm leading-5 text-gray-900">Software Engineer
                                     </div> --}}
-                                            <div class="text-sm leading-5 text-gray-500">{{ $book->book_code }}</div>
+                                            <div class="text-sm leading-5 text-gray-500">{{ $book_code->book_code }}
+                                            </div>
                                         </td>
                                         <td
                                             class="px-6 py-4 text-sm font-bold leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            {{ $book->genre }}</td>
+                                            {{ $book_code->book->genre }}</td>
                                         <td
                                             class="px-6 py-4 text-sm leading-5 font-bold text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                            <div class="text-sm leading-5 text-gray-800">{{ $book->author }}
+                                            <div class="text-sm leading-5 text-gray-800">
+                                                {{ $book_code->book->author }}
                                             </div>
                                         </td>
 
@@ -214,10 +215,11 @@
 
                                         <td
                                             class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                            <a href="{{ route('books.edit', $book->id) }}"
+                                            <a href="{{ route('books.edit', $book_code->book_id) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
 
-                                            <form action="{{ secure_url(route('books.destroy', $book->id)) }}"
+                                            <form
+                                                action="{{ secure_url(route('books.destroy', $book_code->book_id)) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('delete')

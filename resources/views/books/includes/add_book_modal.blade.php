@@ -61,7 +61,7 @@ focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-
                                 <p class="text-red-500 my-2">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="w-full">
+                        {{-- <div class="w-full">
                             <label for="book_code" class="block mb-2   text-black dark:text-white">
                                 Book Code</label>
                             <input type="text" name="book_code" id="book_code"
@@ -72,7 +72,7 @@ focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-
                             @error('book_code')
                                 <p class="text-red-500 my-2">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div>
                             <label for="genre"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Genre</label>

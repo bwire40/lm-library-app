@@ -13,7 +13,7 @@ class Book extends Model
         "genre",
         "author",
         "image",
-        "book_code",
+        // "book_code",
         "isbn",
         "edition",
         "publisher",
@@ -26,5 +26,9 @@ class Book extends Model
     {
 
         return $this->hasMany('App\Acquisition');
+    }
+    public function book_code()
+    {
+        return $this->hasMany(BookCode::class);
     }
 }

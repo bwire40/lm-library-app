@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Acquisition;
 use App\Models\Book;
+use App\Models\BookCode;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -12,12 +13,14 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Book $book, Request $request)
+    public function index(Book $book, Request $request, BookCode $bookCode)
     {
 
         $acquisition = Acquisition::orderBy("created_at", "desc")->paginate(20);
         // perform a books genre search
         $books = Book::orderBy("created_at", "desc");
+
+        $book_codes = BookCode::orderBy("created_at", "desc")->paginate(20);
         // chck if there is search
         if (request()->has('genre_search')) {
             $books = $books->where('genre', 'like', '%' . request()->get('genre_search', '') . '%');
@@ -32,7 +35,7 @@ class BookController extends Controller
 
         $genres = Genre::orderBy("genre", "asc")->get();
 
-        $count = Book::count();
+        $count = BookCode::count();
         $genre_count = Genre::count();
 
 
@@ -40,6 +43,7 @@ class BookController extends Controller
             "book" => $book,
             "genres" => $genres,
             "books" => $books->paginate(20),
+            "book_codes" => $book_codes,
             "count" => $count,
             "genre_count" => $genre_count,
             "acquisition" => $acquisition
@@ -63,7 +67,7 @@ class BookController extends Controller
         //
         $validated = $request->validate([
             "title" => "required|min:3",
-            "book_code" => "required|min:3",
+            // "book_code" => "required|min:3",
             "genre" => "required",
             "author" => "required|min:3",
             "image" => "required|image|mimes:png,jpg,jpeg,git|max:2048",
@@ -84,7 +88,7 @@ class BookController extends Controller
         // create the book
         Book::create([
             "title" => strtoupper($validated["title"]),
-            "book_code" => $validated["book_code"],
+            // "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => strtoupper($validated["author"]),
             "image" => $imageName,
@@ -127,7 +131,7 @@ class BookController extends Controller
         //
         $validated = $request->validate([
             "title" => "required|min:3",
-            "book_code" => "required|min:3",
+            // "book_code" => "required|min:3",
             "genre" => "required",
             "author" => "required|min:3",
             "isbn" => "required|min:3",
@@ -147,7 +151,7 @@ class BookController extends Controller
         // update the book
         $book->update([
             "title" => strtoupper($validated["title"]),
-            "book_code" => $validated["book_code"],
+            // "book_code" => $validated["book_code"],
             "genre" => $validated["genre"],
             "author" => strtoupper($validated["author"]),
             "isbn" => $validated['isbn'],

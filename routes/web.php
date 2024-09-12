@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcquisitionController;
+use App\Http\Controllers\BookCodeController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\FeeModuleController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReturnBookController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
-use App\Models\ReturnBook;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -21,6 +21,11 @@ Route::get("/", [HomeController::class, "index"])->middleware(['auth', 'verified
 
 // catalogue route
 Route::resource('/books', BookController::class)
+    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
+    ->middleware(['auth', 'verified', Admin::class]);
+
+// bok_code
+Route::resource('/book-code', BookCodeController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth', 'verified', Admin::class]);
 

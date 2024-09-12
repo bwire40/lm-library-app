@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('return_date')->nullable();
             $table->foreignId('guest_id')->constrained()->cascadeOnDelete();
             $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('book_code')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

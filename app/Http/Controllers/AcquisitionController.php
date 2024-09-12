@@ -6,6 +6,7 @@ use App\Models\Genre;
 use App\Models\Guest;
 use App\Models\Book;
 use App\Models\Acquisition;
+use App\Models\BookCode;
 use Illuminate\Http\Request;
 
 class AcquisitionController extends Controller
@@ -14,12 +15,15 @@ class AcquisitionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, Acquisition $acquisition, Book $book, BookCode $bookCode)
     {
         // Fetch all genres
         $genres = Genre::all();
         // Fetch all guests that are active
         $guests = Guest::where('status', '=', 'active')->get();
+
+        // fetch all book with their codes
+        $book_codes = BookCode::all();
         // Initialize query for books
         $booksQuery = Book::where('id', '>', 0);
 
@@ -41,6 +45,7 @@ class AcquisitionController extends Controller
             'genres' => $genres,
             'books' => $books,
             'guests' => $guests,
+            'book_codes' => $book_codes
         ]);
     }
     /**
@@ -60,19 +65,21 @@ class AcquisitionController extends Controller
             'phone' => 'required',
             'guest_id' => 'required',
             'book_id' => 'required',
+            'book_code' => 'required',
             'issue_date' => 'required',
             'due_date' => 'required',
-
         ]);
 
         // Create a new acquisition record
         Acquisition::create([
             'guest_id' => $validatedData['guest_id'],
             'book_id' => $validatedData['book_id'],
+            'book_code' => $validatedData['book_code'],
             'email' => $validatedData['email'],
             'phone' => $validatedData['phone'],
             'issue_date' => $validatedData['issue_date'],
             'due_date' => $validatedData['due_date'],
+            'status' => "borrowed",
         ]);
 
         // Reduce the number of available copies in the Book model
