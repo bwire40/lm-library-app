@@ -1,66 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 📚 Laravel Library Management System
 
-## About Laravel
+A simple but functional Library Management System built using **Laravel 12** and **SQLite**. This system supports:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- User enrollment
+- Book acquisition
+- Book booking/reservation
+- Fee handling for late returns
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🎯 Features
 
-## Learning Laravel
+**User Enrollment**
+- Register new library members.
+- Store and manage member details.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Book Acquisition**
+- Add new books with details like title, author, publication year, ISBN, etc.
+- Manage book inventory.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**Booking a Book**
+- Users can book/reserve a book.
+- Prevent double-booking of the same book.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Late Return & Fees**
+- Track borrowed book with their return dates.
+- Automatically calculate and charge late return fees based on the number of overdue days.
+## 👩‍💻 Tech Stack
 
-## Laravel Sponsors
+- **Framework:** Laravel 12
+- **Database:** SQLite
+- **PHP Version:** >= 8.2
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🏠 Run Locally
 
-### Premium Partners
+Clone the project
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+  https://github.com/bwire40/lm-library-app.git
+```
 
-## Contributing
+Go to the project directory
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+  cd lm-library-app
+```
 
-## Code of Conduct
+Install dependencies
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+  composer install
+```
 
-## Security Vulnerabilities
+Create .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+  cp .env.example .env
+```
+Generate application key
 
-## License
+```bash
+  php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Setup SQLite database
+
+```bash
+  touch database/database.sqlite
+```
+
+Run migrations
+
+```bash
+  php artisan migrate
+```
+
+Serve the app
+```bash
+  php artisan serve
+```
+
+
+## 🧩 Project Structure 
+```
+app/
+├── Models/
+│   ├── Acquisition.php
+│   ├── Genre.php
+│   ├── Book.php
+│   ├── BookTitle.php
+│   ├── Guest.php
+│   ├── User.php
+│   ├── ReturnBook.php
+│   └── FeeModule.php
+├── Http/
+│   └── Controllers/
+|       ├──Auth├──AuthenticatedSessionController.php
+|              ├──ConfirmablePasswordController.php
+|              ├──EmailVerificationNotificationController.php
+|              ├──EmailVerificationPromptController.php
+|              ├──NewPasswordController.php
+|              ├──PasswordController.php                
+|              ├──PasswordResetLinkController.php
+|              ├──RegisteredUserController.php
+│              └──VerifyEmailController.php
+|       ├── AcquisitionController.php
+│       ├── BookController.php
+│       ├── Controller.php
+│       ├── UserController.php
+│       ├── GenreController.php
+│       ├── GuestController.php
+│       ├── ProfileController.php
+│       ├── ReturnBookController.php
+│       ├── UserController.php
+│       └── HomeController.php
+database/
+├── migrations/
+├── seeders/
+routes/
+├── web.php
+├── console.php
+└── auth.php
+```
+## 📈 Database Schema Overview
+
+| **Table**       | **Description**                                                             |
+|-----------------|------------------------------------------------------------------------------|
+| `users`         | Stores registered library members.                                           |
+| `cache`         | Laravel internal caching table (used for performance optimization).         |
+| `genres`        | Stores book genres/categories for classification.                           |
+| `books`         | Contains book inventory data including title, author, ISBN, etc.            |
+| `acquisitions`  | Stores records of books borrowed (or acquired) by guests, with due dates.   |
+| `guests`        | Stores temporary visitors or non-member users.                              |
+| `jobs`          | Laravel internal queue jobs table (for asynchronous tasks).                 |
+
+
+
+
+
+## 🎡 API Endpoints 
+| Method | Endpoint                            | Description                      |
+|--------|-------------------------------------|----------------------------------|
+| GET    | `/register`                         | Show registration form           |
+| POST   | `/register`                         | Register a new user              |
+| GET    | `/login`                            | Show login form                  |
+| POST   | `/login`                            | Authenticate user                |
+| GET    | `/forgot-password`                  | Request password reset           |
+| POST   | `/forgot-password`                  | Send password reset email        |
+| GET    | `/reset-password/{token}`           | Show reset password form         |
+| POST   | `/reset-password`                   | Reset user password              |
+| GET    | `/verify-email`                     | Show email verification prompt   |
+| GET    | `/verify-email/{id}/{hash}`         | Verify user's email              |
+| POST   | `/email/verification-notification`  | Resend verification email        |
+| GET    | `/confirm-password`                 | Show confirm password form       |
+| POST   | `/confirm-password`                 | Confirm user's password          |
+| PUT    | `/password`                         | Update user's password           |
+| POST   | `/logout`                           | Logout user                      |
+
+## 👥 Authors
+
+- [Allan Ojwang - Github](https://github.com/Allan-Ojwang)
+- [Emmanuel Bwire - Github](https://github.com/bwire40)
+- [Moses Mmata Kashi - Github](https://github.com/Mmatakashy)
+
+
+## 📝 License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
